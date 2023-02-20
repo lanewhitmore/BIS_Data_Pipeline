@@ -1,17 +1,17 @@
-2023-02-19 17:18:53,792:INFO:full_xru_csv.zip retrieved
-2023-02-19 17:18:53,853:INFO:full_xru_csv.zip extracted
-2023-02-19 17:18:54,213:INFO:WS_XRU_csv_col.csv_file=1153_import=1152_delta=1
-2023-02-19 17:18:55,598:INFO:full_long_cpi_csv.zip retrieved
-2023-02-19 17:18:55,615:INFO:full_long_cpi_csv.zip extracted
-2023-02-19 17:18:55,691:INFO:WS_LONG_CPI_csv_col.csv_file=241_import=240_delta=1
-2023-02-19 17:18:56,471:INFO:full_cbpol_m_csv.zip retrieved
-2023-02-19 17:18:56,476:INFO:full_cbpol_m_csv.zip extracted
-2023-02-19 17:18:56,524:INFO:WS_CBPOL_M_csv_col.csv_file=39_import=38_delta=1
-2023-02-19 17:18:56,575:INFO:exchange_rate population executed
-2023-02-19 17:18:56,594:INFO:consumer_prices population executed
-2023-02-19 17:18:56,611:INFO:policy_rate population executed
-2023-02-19 17:19:15,551:INFO:exchange_rate_values population executed
-2023-02-19 17:19:17,367:INFO:consumer_prices_values population executed
-2023-02-19 17:19:17,540:INFO:policy_rate_values population executed
-2023-02-19 17:20:45,430:INFO:cpi_df created
-2023-02-19 17:20:45,433:INFO:fedrate_df created
+2023-02-19 18:40:59,043:INFO:full_xru_csv.zip retrieved
+2023-02-19 18:40:59,107:INFO:full_xru_csv.zip extracted
+2023-02-19 18:40:59,457:INFO:WS_XRU_csv_col.csv_file=1153_import=1152_delta=1
+2023-02-19 18:41:00,792:INFO:full_long_cpi_csv.zip retrieved
+2023-02-19 18:41:00,813:INFO:full_long_cpi_csv.zip extracted
+2023-02-19 18:41:00,901:INFO:WS_LONG_CPI_csv_col.csv_file=241_import=240_delta=1
+2023-02-19 18:41:01,681:INFO:full_cbpol_m_csv.zip retrieved
+2023-02-19 18:41:01,684:INFO:full_cbpol_m_csv.zip extracted
+2023-02-19 18:41:01,737:INFO:WS_CBPOL_M_csv_col.csv_file=39_import=38_delta=1
+2023-02-19 18:41:01,786:INFO:exchange_rate population executed
+2023-02-19 18:41:01,801:INFO:consumer_prices population executed
+2023-02-19 18:41:01,813:INFO:policy_rate population executed
+2023-02-19 18:41:20,737:INFO:exchange_rate_values population executed
+2023-02-19 18:41:22,496:INFO:consumer_prices_values population executed
+2023-02-19 18:41:22,664:INFO:policy_rate_values population executed
+2023-02-19 18:41:22,867:INFO:cpi_df created
+2023-02-19 18:41:22,870:INFO:fedrate_df created
