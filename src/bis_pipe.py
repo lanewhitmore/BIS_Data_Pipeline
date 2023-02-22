@@ -1,9 +1,7 @@
-
-# # Bank International Settlement - Data Pipeline
-# __Team 6 - Lane Whitmore and Dave Friesen__<br>
-# __ADS-507-02-SP23__<br><br>
-# __GitHub link: https://github.com/lanewhitmore/BIS_Data_Pipeline__
-
+# Bank International Settlement - Data Pipeline
+# Team 6 - Lane Whitmore and Dave Friesen
+# ADS-507-02-SP23
+# GitHub link: https://github.com/lanewhitmore/BIS_Data_Pipeline
 
 __authors__ = ['Lane Whitmore', 'Dave Friesen']
 __contact__ = ['lwhitmore@sandiego.edu', 'dfriesen@sandiego.edu']
@@ -11,8 +9,9 @@ __date__ = '2023-02-04'
 __license__ = 'MIT'
 __version__ = '1.0.1'
 
-
-# # Setup
+# **********************************************************************
+# Setup
+# **********************************************************************
 
 # Import data and pipeline libraries
 import pandas as pd
@@ -20,6 +19,10 @@ import numpy as np
 import pymysql
 from sqlalchemy import create_engine
 pymysql.install_as_MySQLdb()
+
+# Import visualization libraries
+import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
 
 # Import utility libraries
 import urllib.error
@@ -31,7 +34,6 @@ import os
 from datetime import datetime
 import warnings
 
-
 # Set database defaults
 _host = os.environ.get('HOST')
 _user = os.environ.get('USER')
@@ -39,16 +41,15 @@ _port = int(os.environ.get('PORT'))
 _passwd = os.environ.get('PASSWORD')
 _db = os.environ.get('DB_NAME')
 
-
 # Setup logging
 logging.basicConfig(filename='pipeline.log', filemode='w', force=True,
                     format='%(asctime)s:%(levelname)s:%(message)s')
 pipeline_log = logging.getLogger('pipeline_log')
 pipeline_log.setLevel(logging.INFO)
 
-
-# # Data Extract and Load
-
+# **********************************************************************
+# Data Extract and Load
+# **********************************************************************
 
 def ctrl_count(fname):
     """
@@ -91,7 +92,6 @@ def load_data(filename, path, id_vars):
     df_values = pd.melt(df_values, id_vars='index', value_vars=df_values.iloc[:, 1:])
     return df, df_ids, df_values
 
-
 # Define file location
 url = 'https://www.bis.org/statistics/'
 
@@ -116,7 +116,6 @@ df_values = {'exr': None, 'cp': None, 'pr': None}  # To be used for subset of va
 #   default (code) directory is 'src', and that a 'data' directory exists in parallel;
 #   this can be configured to anything
 ds_path = '../data/'
-
 
 # Iterate dataset
 for dataset in ds:
@@ -143,8 +142,9 @@ for dataset in ds:
         
     print()
 
-
-# # Data Transformation
+# **********************************************************************
+# Data Transformation
+# **********************************************************************
 
 ### Renaming key columns to be imported into the schema to make them more workable within MySQL
 df_ids['exr'] = df_ids['exr'].copy() # added to avoid SettingWithCopyWarning
@@ -163,7 +163,6 @@ df_ids['cp'].rename(columns = {'Frequency': 'frequency', 'Reference area': 'refe
 df_values['exr'].rename(columns = {'index': 'exchange_rate_id', 'variable': 'date'}, inplace = True)
 df_values['pr'].rename(columns = {'index': 'policy_rate_id', 'variable': 'date'}, inplace = True)
 df_values['cp'].rename(columns = {'index': 'consumer_prices_id', 'variable': 'date'}, inplace = True)
-
 
 ### Creating connection to local machine // formulas to nest df to 
 def run_connection(db_connection: pymysql, syntax: str) -> None:
@@ -241,9 +240,7 @@ def populate_table(table_name: str, df: pd.DataFrame) -> None:
     ### Identify missing columns
     missing_columns = set(col_names).difference(df.columns)
     
-
     pipeline_log.info(table_name+' population executed')
-
     
     if len(missing_columns) > 0:
         pipeline_log.error('Missing Columns Critical Error')
@@ -258,38 +255,96 @@ def populate_table(table_name: str, df: pd.DataFrame) -> None:
 
     warnings.resetwarnings()
 
-
 ### Table names from Schema for ID
 table_names = ['exchange_rate','consumer_prices','policy_rate']
 value_table_names = ['exchange_rate_values','consumer_prices_values','policy_rate_values']
 
 for i in zip(df_ids, table_names):
     print('Populating ' + i[1] + ' with ' + i[0], end='... ')
-
     populate_table(table_name= i[1], df = df_ids[i[0]])
-
     print()
 
 for i in zip(df_values, value_table_names):
     print('Populating ' + i[1] + ' with ' + i[0], end='... ')
-
     populate_table(table_name= i[1], df = df_values[i[0]])
-
     print()
 
 
-# # Data Consumption
+# **********************************************************************
+# Data Consumption
+# **********************************************************************
 
 
-#
 
 
-# # Wrap-up
 
+## Establish CPI and Fed Rate Dataframes
 
-#
+# Create connection to the MySQL server
+conn = pymysql.connect(host=_host, user=_user, passwd=_passwd, db=_db)
+
+# Filter innocuous sqlalchemy warnings
+warnings.filterwarnings('ignore')    
+
+# Create Consumer Price Index (CPI) dataframe for select time frame
+### NOTE one thing this doesn't currently do is determine 'percent' dynamically. . .
+q = 'SELECT         cp.reference_area AS cp_reference_area         , cpv.date AS cpv_date         , cpv.value AS cpv_value     FROM consumer_prices cp     INNER JOIN consumer_prices_values cpv ON cp.consumer_prices_id = cpv.consumer_prices_id     WHERE         cp.reference_area LIKE \'United States%\'         AND cp.frequency = \'Monthly\'         AND cp.unit_of_measure = \'Year-on-year changes, in per cent\'         AND LENGTH(cpv.date) = 7         AND CAST(SUBSTR(cpv.date, 1, 4) AS UNSIGNED) BETWEEN 1980 AND 2022     ORDER BY 2, 3;'
+print('Creating cpi_df', end='... ')
+try:
+    cpi_df = pd.read_sql(q, conn)
+    cpi_df['cpv_date'] = pd.to_datetime(cpi_df['cpv_date'])
+    pipeline_log.info('cpi_df created')
+except Exception as e:
+    pipeline_log.error(f'cpi_df error: {e}')
+print()
+
+# Create US Fed Rate dataframe for same time frame as CPI above
+q = 'SELECT         prv.date AS prv_date         , prv.value AS prv_value     FROM policy_rate pr     INNER JOIN policy_rate_values prv ON pr.policy_rate_id = prv.policy_rate_id     WHERE         pr.source_ref = \'US Federal Reserve System\'         AND pr.frequency = \'Monthly\'         AND LENGTH(prv.date) = 7         AND CAST(SUBSTR(prv.date, 1, 4) AS UNSIGNED) BETWEEN 1980 AND 2022     ORDER BY 1, 2;'
+print('Creating fedrate_df', end='... ')
+try:
+    fedrate_df = pd.read_sql(q, conn)
+    fedrate_df['prv_date'] = pd.to_datetime(fedrate_df['prv_date'])
+    pipeline_log.info('fedrate_df created')
+except Exception as e:
+    pipeline_log.error(f'fedrate_df error: {e}')
+print()
+
+# Close MySQL connection
+conn.close()
+
+# Reset warnings to default
+warnings.resetwarnings()
+
+##
+## Perform Basic Time Series Analysis - CPI and Fed Rate
+
+print('Plotting CPI_v_Fedrate', end='... ')
+
+# Plot ratings and film counts
+fig, ax = plt.subplots()
+ax.plot(cpi_df['cpv_date'], cpi_df['cpv_value'].rolling(window=3).mean(), label='CPI (Q-smoothed)')
+ax.plot(fedrate_df['prv_date'], fedrate_df['prv_value'].rolling(window=3).mean(), label='Fed Rate (Q-smoothed)')
+
+# Set plot titles, axis labels, and legend
+plt.title('US Inflation vs. Federal Discount Rate - 1980 to present')
+plt.xlabel('Date')
+plt.ylabel('Percent')
+ax.set_xlim(cpi_df['cpv_date'].min(), cpi_df['cpv_date'].max() + pd.DateOffset(years=10))
+ax.xaxis.set_major_locator(mdates.YearLocator(5))
+ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y'))
+ax.axvline(x=cpi_df['cpv_date'].max(), color='lightgray', linestyle='dashed', lw=1.5)
+plt.legend()
+
+# Show plot and save it for e.g., dashboard or Web
+#plt.show()
+fig.savefig('CPI_v_FedRate.svg', format='svg')
+
+pipeline_log.info('CPI_v_FedRate generated')
+print()
+
+# **********************************************************************
+# Wrap-up
+# **********************************************************************
+
+# Cleanly close logging
 logging.shutdown()
-
-
-
-
