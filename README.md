@@ -34,13 +34,30 @@ inform analysis of global financial stability and liquidy.
 
 5. Set Operating System Environment Variables (Directions for Windows OS Users):
     
-    A. In the windows search bar type 'Edit the system environment variables'.
+    A. In the windows search bar type 'Edit the system environment variables' and select it.
     
-    B. 
+    B. In the advanced tab select 'Environment Variables' button in the bottom right just above 'ok', 'cancel', and 'apply'.
+    
+    C. Once in, you will want to select 'New...' for the top panel 'User Variables'.
+    
+    D. Create the following User Variables:
+        i. variable name: DATA_PATH variable value: local path to BIS_Data_Pipeline/Data/. Tip: No quotation marks.
+        
+        ii. variable name: DB_NAME variable value: BIS_ID.
+        
+        iii. variable name: HOST variable value: your local host name for MySQL server.
+        
+        iiii. variable name: PASSWORD variable value: your local password for MySQL server.
+        
+        iiiii. variable name: PORT variable value: your local port number for MySQL server.
+        
+        iiiiii. variable name: USER variable value: your local user name for MySQL server.
+    
+    E. Alternatively, these values can be manually typed into the top of the bis_pipe.py file (just below package imports) where environment variables are saved.
 
-5. Open bis_pipe.py in IDE of choice and run the file.
+6. Open bis_pipe.py in IDE of choice and run the file.
 
-6. Monitoring:
+7. Monitoring:
     
     A. Check that prints within IDE tracking where the file is all went through.
     
@@ -57,7 +74,36 @@ inform analysis of global financial stability and liquidy.
     
     C. On line three, paste your Anaconda python.exe file location. Then, in the quotation marks, replace my bis_pipe.py file path with your local one.
     
-2. 
+2. Open Window's Task Scheduler and follow these steps:
+    
+    A. In the upper right of the page in the 'Actions' bar select 'Create Task'
+    
+    B. Name the task whatever you feel appropriate, I named mine run_bis_pipeline.
+    
+    C. Add a description of what the task is doing.
+    
+    D. Go to 'Triggers':
+        i. Select 'New'
+        
+        ii. Set 'Begin the task' to 'On a schedule' in the drop down.
+        
+        iii. In the Settings, select 'Monthly' and set the start for the 2nd of the next month at 10 AM PST. In my case it will be March 2nd. 
+        
+        iiii. In the 'Months' drop down select all months, and in the 'Days' drop down select '2' for the second of every month.
+        
+        iiiii. Additionally, in settings make sure 'Allow Task to Run on Command' to test your automation. 
+        
+    E. Save Task.
+    
+3. Test your automation by either doubling clicking your bis_pipe_automation.bat file in File Explorer or right clicking then running your task in task schedule. 
+
+4. Monitoring:
+
+    A. Monitoring functions in the same way as listed above. So long as your cd has been set to 'src' folder, your pipeline logs will appear there.
+    
+    B. 'pause' has been added to bis_pipe_automation.bat to show the prints within the Window's command prompt until a key is pressed to exit.
+    
+    C. Task Scheduler will now populate BIS_ID with monthly CSV updates on the 2nd of every month at 10AM PST. Logs should be used to ensure the process has been     completed. 
 
 
 
