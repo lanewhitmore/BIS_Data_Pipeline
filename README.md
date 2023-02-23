@@ -1,7 +1,7 @@
-# BIS Pipeline - Bank for International Settlements (BIS) Data and Automation
-__Lane Whitmore and Dave Friesen__
-__lwhitmore@sandiego.edu, dfriesen@sandiego.edu__
-__GitHub link: https://github.com/lanewhitmore/BIS_Data_Pipeline__
+# BIS Pipeline - Bank for International Settlements (BIS)
+__Lane Whitmore and Dave Friesen__<br>
+__lwhitmore@sandiego.edu, dfriesen@sandiego.edu__<br>
+__GitHub link: https://github.com/lanewhitmore/BIS_Data_Pipeline__<br>
 
 ## Context and Project
 
@@ -16,7 +16,17 @@ inform analysis of global financial stability and liquidy.
 
 ## Data
 
-*BIS Pipeline* data includes US dollar exchange rates (monthly, quarterly and annual), consumer prices, and policy rates (monthly). These datasets are sourced from BIS’ statistics download page located at https://www.bis.org/statistics/full_data_sets.htm, summarized as follows:
+*BIS Pipeline* data includes US dollar exchange rates (monthly, quarterly and annual), consumer prices, and policy rates (monthly). These datasets are sourced from BIS’ statistics download page located at https://www.bis.org/statistics/full_data_sets.htm, baseline-summarized as follows:
+
+| Dataset Name                | File Name and Format    | Size (dimensional)       |
+| US Dollar exchange rates    | WS_XRU_csv_col.csv      | 1,150 rows (less header) |
+| (monthly, quarterly, annual)|                         | 3,960 columns            |
+| Consumer prices             | WS_LONG_CPI_csv_col.csv | 240 rows (less header)   |
+|                             |                         | 1,696 columns            |
+| Policy rates (monthly)      | WS_CBPOL_M_csv_col.csv  | 39 rows (less header)    |
+|                             |                         | 937 columns              |
+
+
 
 | Syntax      | Description |
 | ----------- | ----------- |
@@ -32,8 +42,11 @@ inform analysis of global financial stability and liquidy.
 ## Pipeline Non-Functional Iverview
 
 ### [process]
+
 ### [security]
+
 ### [extensibility]
-### [scalability}
+
+### [scalability]
 
 ## Gaps and Opportunities
