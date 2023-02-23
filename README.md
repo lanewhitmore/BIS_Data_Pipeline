@@ -20,12 +20,9 @@ inform analysis of global financial stability and liquidy.
 
 | Dataset Name                | File Name and Format    | Size (dimensional)       |
 | --------------------------- | ----------------------- | ------------------------ |
-| US Dollar <br>exchange rates    | WS_XRU_csv_col.csv      | 1,150 rows (less header) |
-| (monthly, quarterly, annual)|                         | 3,960 columns            |
-| Consumer prices             | WS_LONG_CPI_csv_col.csv | 240 rows (less header)   |
-|                             |                         | 1,696 columns            |
-| Policy rates (monthly)      | WS_CBPOL_M_csv_col.csv  | 39 rows (less header)    |
-|                             |                         | 937 columns              |
+| US Dollar exchange rates<br>(monthly, quarterly, annual) | WS_XRU_csv_col.csv      | 1,150 rows (less header)<br>3,960 columns |
+| Consumer prices                                          | WS_LONG_CPI_csv_col.csv | 240 rows (less header)<br>1,696 columns   |
+| Policy rates (monthly)                                   | WS_CBPOL_M_csv_col.csv  | 39 rows (less header)<br>937 columns      |
 
 ### [entity relationship diagram]
 
