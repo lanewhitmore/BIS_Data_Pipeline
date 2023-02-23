@@ -27,7 +27,7 @@ __Table 1__<br>
 | Policy rates (monthly)                                   | WS_CBPOL_M_csv_col.csv  | 39 rows (less header)<br>937 columns      |
 
 ### [entity relationship diagram]
-<img src="https://github.com/lanewhitmore/BIS_Data_Pipeline/blob/main/data/bis_id_ERD.png" width=150% height=150%>
+<img src="https://github.com/lanewhitmore/BIS_Data_Pipeline/blob/main/data/bis_id_ERD.png" width=130% height=130%>
 
 ## Pipeline Functional Overview
 
