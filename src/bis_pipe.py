@@ -359,6 +359,7 @@ view4q = "SELECT currency, collection, unit_multiplier, availability, title, ser
 view5q = "SELECT currency, collection, unit_multiplier, availability, title, series, date, exchange_rate FROM usd_to_uk WHERE date > 1970;"
 
 # Creating data frames that are defined by the views where date is greater than 1900
+print('Creating usd_to_can data frame', end='... ')
 try:
     usd_to_can = pd.read_sql(view1q, conn)
     usd_to_can['date'] = pd.to_datetime(usd_to_can['date'])
@@ -367,6 +368,7 @@ except Exception as e:
     pipeline_log.error(f'usd_to_can data frame error: {e}')
 print()
 
+print('Creating usd_to_chi data frame', end='... ')
 try:
     usd_to_chi = pd.read_sql(view2q, conn)
     usd_to_chi['date'] = pd.to_datetime(usd_to_chi['date'])
@@ -375,6 +377,7 @@ except Exception as e:
     pipeline_log.error(f'usd_to_chi data frame error: {e}')
 print()
 
+print('Creating usd_to_ja data frame', end='... ')
 try:
     usd_to_ja = pd.read_sql(view3q, conn)
     usd_to_ja['date'] = pd.to_datetime(usd_to_ja['date'])
@@ -383,6 +386,7 @@ except Exception as e:
     pipeline_log.error(f'usd_to_ja data frame error: {e}')
 print()
 
+print('Creating usd_to_uk data frame', end='... ')
 try:
     usd_to_uk = pd.read_sql(view5q, conn)
     usd_to_uk['date'] = pd.to_datetime(usd_to_uk['date'])
@@ -391,6 +395,7 @@ except Exception as e:
     pipeline_log.error(f'usd_to_uk data frame error: {e}')
 print()
 
+print('Creating usd_to_mex data frame', end='... ')
 try:
     usd_to_mex = pd.read_sql(view4q, conn)
     usd_to_mex['date'] = pd.to_datetime(usd_to_mex['date'])
@@ -405,8 +410,9 @@ conn.close()
 # Reset warnings to default
 warnings.resetwarnings()
 
+print('Plotting USD_Exchange_rates', end='... ')
 
-# Plot ratings and film counts
+# Plot date and exchange rate
 fig, ax = plt.subplots()
 ax.plot(usd_to_can['date'], usd_to_can['exchange_rate'].rolling(window=3).mean(), label='USD to Canadian Dollar (Q-smoothed)')
 ax.plot(usd_to_mex['date'], usd_to_mex['exchange_rate'].rolling(window=3).mean(), label='USD to Mexican Peso (Q-smoothed)')
@@ -425,7 +431,7 @@ fig.savefig('USD_Exchange_rates.svg', format='svg')
 
 pipeline_log.info('USD_Exchange_rates generated')
 
-
+print('Plotting USD_Exchange_rates_int', end='... ')
 fig, ax = plt.subplots()
 ax.plot(usd_to_chi['date'], usd_to_chi['exchange_rate'].rolling(window=3).mean(), label='USD to Chinese Yuan (Q-smoothed)')
 ax.plot(usd_to_ja['date'], usd_to_ja['exchange_rate'].rolling(window=3).mean(), label='USD to Japanese Yen (Q-smoothed)')
