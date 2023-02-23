@@ -29,7 +29,6 @@ __Table 1__<br>
 ### [entity relationship diagram]
 
 ![BIS ERD](https://github.com/lanewhitmore/BIS_Data_Pipeline/blob/main/data/bis_id_ERD.png)
-@bis_id_ERD.png
 
 ## Pipeline Functional Overview
 
