@@ -30,14 +30,16 @@ inform analysis of global financial stability and liquidy.
 
 ### [output/utility]
 
-## Pipeline Non-Functional Iverview
+## Pipeline Non-Functional Overview
 
 ### [process]
 
+### [data integrity controls and logging]
+
 ### [security]
 
-### [extensibility]
-
 ### [scalability]
+
+### [extensibility]
 
 ## Gaps and Opportunities
