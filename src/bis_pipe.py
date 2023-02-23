@@ -342,6 +342,109 @@ fig.savefig('CPI_v_FedRate.svg', format='svg')
 pipeline_log.info('CPI_v_FedRate generated')
 print()
 
+# establish pymysql connection
+conn = pymysql.connect(host=_host, user=_user, passwd=_passwd, db=_db)
+
+# Filter innocuous sqlalchemy warnings
+warnings.filterwarnings('ignore')
+
+view1q = "SELECT currency, collection, unit_multiplier, availability, title, series, date, exchange_rate FROM usd_to_canada WHERE date > 1970;"
+
+view2q = "SELECT currency, collection, unit_multiplier, availability, title, series, date, exchange_rate FROM usd_to_china WHERE date > 1970;"
+
+view3q = "SELECT currency, collection, unit_multiplier, availability, title, series, date, exchange_rate FROM usd_to_japan WHERE date > 1970;"
+
+view4q = "SELECT currency, collection, unit_multiplier, availability, title, series, date, exchange_rate FROM usd_to_mexico WHERE date > 1970;"
+
+view5q = "SELECT currency, collection, unit_multiplier, availability, title, series, date, exchange_rate FROM usd_to_uk WHERE date > 1970;"
+
+# Creating data frames that are defined by the views where date is greater than 1900
+try:
+    usd_to_can = pd.read_sql(view1q, conn)
+    usd_to_can['date'] = pd.to_datetime(usd_to_can['date'])
+    pipeline_log.info('usd_to_can data frame created')
+except Exception as e:
+    pipeline_log.error(f'usd_to_can data frame error: {e}')
+print()
+
+try:
+    usd_to_chi = pd.read_sql(view2q, conn)
+    usd_to_chi['date'] = pd.to_datetime(usd_to_chi['date'])
+    pipeline_log.info('usd_to_chi data frame created')
+except Exception as e:
+    pipeline_log.error(f'usd_to_chi data frame error: {e}')
+print()
+
+try:
+    usd_to_ja = pd.read_sql(view3q, conn)
+    usd_to_ja['date'] = pd.to_datetime(usd_to_ja['date'])
+    pipeline_log.info('usd_to_ja data frame created')
+except Exception as e:
+    pipeline_log.error(f'usd_to_ja data frame error: {e}')
+print()
+
+try:
+    usd_to_uk = pd.read_sql(view5q, conn)
+    usd_to_uk['date'] = pd.to_datetime(usd_to_uk['date'])
+    pipeline_log.info('usd_to_uk data frame created')
+except Exception as e:
+    pipeline_log.error(f'usd_to_uk data frame error: {e}')
+print()
+
+try:
+    usd_to_mex = pd.read_sql(view4q, conn)
+    usd_to_mex['date'] = pd.to_datetime(usd_to_mex['date'])
+    pipeline_log.info('usd_to_mex data frame created')
+except Exception as e:
+    pipeline_log.error(f'usd_to_mex data frame error: {e}')
+print()
+
+# Close MySQL connection
+conn.close()
+
+# Reset warnings to default
+warnings.resetwarnings()
+
+
+# Plot ratings and film counts
+fig, ax = plt.subplots()
+ax.plot(usd_to_can['date'], usd_to_can['exchange_rate'].rolling(window=3).mean(), label='USD to Canadian Dollar (Q-smoothed)')
+ax.plot(usd_to_mex['date'], usd_to_mex['exchange_rate'].rolling(window=3).mean(), label='USD to Mexican Peso (Q-smoothed)')
+
+plt.title('US Dollar Exchange Rate with North American Countries - 1970 to present')
+plt.xlabel('Date')
+plt.ylabel('Exchange Rate')
+ax.set_xlim(usd_to_can['date'].min(), usd_to_can['date'].max() + pd.DateOffset(years=10))
+ax.xaxis.set_major_locator(mdates.YearLocator(5))
+ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y'))
+ax.axvline(x=usd_to_can['date'].max(), color='lightgray', linestyle='dashed', lw=1.5)
+plt.legend()
+
+# save plot for e.g., dashboard or Web
+fig.savefig('USD_Exchange_rates.svg', format='svg')
+
+pipeline_log.info('USD_Exchange_rates generated')
+
+
+fig, ax = plt.subplots()
+ax.plot(usd_to_chi['date'], usd_to_chi['exchange_rate'].rolling(window=3).mean(), label='USD to Chinese Yuan (Q-smoothed)')
+ax.plot(usd_to_ja['date'], usd_to_ja['exchange_rate'].rolling(window=3).mean(), label='USD to Japanese Yen (Q-smoothed)')
+ax.plot(usd_to_uk['date'], usd_to_uk['exchange_rate'].rolling(window=3).mean(), label='USD to UK Pound Sterling (Q-smoothed)')
+
+plt.title('US Dollar Exchange Rate with Countries of International Interest - 1970 to present')
+plt.xlabel('Date')
+plt.ylabel('Exchange Rate')
+ax.set_xlim(usd_to_uk['date'].min(), usd_to_uk['date'].max() + pd.DateOffset(years=10))
+ax.xaxis.set_major_locator(mdates.YearLocator(5))
+ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y'))
+ax.axvline(x=usd_to_uk['date'].max(), color='lightgray', linestyle='dashed', lw=1.5)
+plt.legend()
+
+# save plot for e.g., dashboard or Web
+fig.savefig('USD_Exchange_rates_int.svg', format='svg')
+
+pipeline_log.info('USD_Exchange_rates_int generated')
+
 # **********************************************************************
 # Wrap-up
 # **********************************************************************
