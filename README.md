@@ -18,7 +18,7 @@ inform analysis of global financial stability and liquidy.
 
 *BIS Pipeline* data includes US dollar exchange rates (monthly, quarterly and annual), consumer prices, and policy rates (monthly). These datasets are sourced from BIS’ statistics download page located at https://www.bis.org/statistics/full_data_sets.htm, baseline-summarized in Table 1 as follows:
 
-__Table 1__
+__Table 1__<br>
 *BIS Datasets*
 | Dataset Name | File Name and Format | Size (dimensional) |
 | ------------ | -------------------- | ------------------ |
@@ -27,6 +27,9 @@ __Table 1__
 | Policy rates (monthly)                                   | WS_CBPOL_M_csv_col.csv  | 39 rows (less header)<br>937 columns      |
 
 ### [entity relationship diagram]
+
+![BIS ERD](https://github.com/lanewhitmore/BIS_Data_Pipeline/blob/main/data/bis_id_ERD.svg)
+@bis_id_ERD.svg
 
 ## Pipeline Functional Overview
 
