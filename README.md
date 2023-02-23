@@ -14,6 +14,12 @@ inform analysis of global financial stability and liquidy.
 
 ### [architecture - including architectural diagram]
 
+## How to
+
+### Deployment
+
+### Monitoring
+
 ## Data
 
 *BIS Pipeline* data includes US dollar exchange rates (monthly, quarterly and annual), consumer prices, and policy rates (monthly). These datasets are sourced from BIS’ statistics download page located at https://www.bis.org/statistics/full_data_sets.htm, baseline-summarized in Table 1 as follows:
