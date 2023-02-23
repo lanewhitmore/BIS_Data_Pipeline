@@ -12,13 +12,14 @@ inform analysis of global financial stability and liquidy.
 
 *BIS Pipeline* is a production-ready, automated data pipeline that extracts, loads, and transforms select BIS datasets, "surfacing" these for advanced analytics.
 
-### [architecture - including architectural diagram]
-
 ## How to
 
 ### Deployment
 
 ### Monitoring
+
+
+### [architecture - including architectural diagram]
 
 ## Data
 
