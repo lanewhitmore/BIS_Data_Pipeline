@@ -13,12 +13,14 @@ supporting monetary and financial cooperation among its central bank owners arou
 globe (BIS, 2023). Among its roles, the BIS compiles and publicly publishes statistics that
 inform analysis of global financial stability and liquidy.
 
-*BIS Pipeline* is a production-ready, automated data pipeline that extracts, loads, and transforms select BIS datasets, "surfacing" these for advanced analytics.
+__*BIS Pipeline*__ is a production-ready, automated data pipeline that extracts, loads, and transforms select BIS datasets, "surfacing" these for advanced analytics as described below under *Pipeline Functional and Non-Functional Overview*.
 
 
 <br>
 
 ## How to
+
+The following sections describe steps to deploy and automate *BIS Pipeline*.
 
 
 ### Pipeline Deployment
@@ -117,14 +119,6 @@ inform analysis of global financial stability and liquidy.
 
 <br>
 
-## Architecture
-
-
-### [architectural diagram]
-
-
-<br>
-
 ## Data
 
 *BIS Pipeline* data includes US dollar exchange rates (monthly, quarterly and annual), consumer prices, and policy rates (monthly). These datasets are sourced from BIS’ statistics download page located at https://www.bis.org/statistics/full_data_sets.htm, baseline-summarized in Table 1 as follows:
@@ -146,13 +140,15 @@ __Figure 1__<br>
 
 <br>
 
-## Pipeline Functional and Non-Funcitonal Overview
+## Pipeline Functional and Non-Functional Overview
 
 
 ### Pipeline Output and Utility
 
 
-### Process
+### Pipeline Architecture and Process
+
+#### [architectural diagram]
 
 
 ### Data Integrity Controls and Logging
