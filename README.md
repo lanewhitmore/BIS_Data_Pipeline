@@ -4,7 +4,8 @@ __lwhitmore@sandiego.edu, dfriesen@sandiego.edu__<br>
 __GitHub link: https://github.com/lanewhitmore/BIS_Data_Pipeline__<br>
 
 
-<br><br>## Context and Project
+<br><br>
+## Context and Project
 
 The Bank for International Settlements (BIS) is an international “bank for central banks”
 supporting monetary and financial cooperation among its central bank owners around the
@@ -14,7 +15,8 @@ inform analysis of global financial stability and liquidy.
 *BIS Pipeline* is a production-ready, automated data pipeline that extracts, loads, and transforms select BIS datasets, "surfacing" these for advanced analytics.
 
 
-<br><br>## How to
+<br><br>
+## How to
 
 
 ### Pipeline Deployment
@@ -111,7 +113,8 @@ inform analysis of global financial stability and liquidy.
     C. Task Scheduler will now populate BIS_ID with monthly CSV updates on the 2nd of every month at 10AM PST. Logs should be used to ensure the process has been     completed. 
 
 
-<br><br>## Architecture
+<br><br>
+## Architecture
 
 
 ### [architectural diagram]
@@ -134,13 +137,15 @@ __Figure 1__<br>
 <img src="https://github.com/lanewhitmore/BIS_Data_Pipeline/blob/main/data/bis_id_ERD.png" width=130% height=130%>
 
 
-<br><br>## Pipeline Functional Overview
+<br><br>
+## Pipeline Functional Overview
 
 
 ### [output/utility]
 
 
-<br><br>## Pipeline Non-Functional Overview
+<br><br>
+## Pipeline Non-Functional Overview
 
 
 ### Process
@@ -164,4 +169,5 @@ In addition to having views to protect the database from security or structural 
 ### Extensibility
 
 
-<br><br>## Gaps and Opportunities
+<br><br>
+## Gaps and Opportunities
