@@ -148,18 +148,26 @@ The following Figure 2 overviews __*BIS Pipeline*__'s end-to-end architecture an
 
 __Figure 2__<br>
 *BIS Pipeline Architecture and Data Flow*
-#### [architectural diagram]
+[. . .]
 
-<br>
+1. Pipeline Trigger -
 
-1. [. . .]
+2. File Download -
 
-2. [. . .]
+3. FIle Extraction -
 
-3. [. . .]
+4. Data Control Count Confirmation -
+
+5. Data Transformation and Database Load -
+
+6. Consumption Sample One Using Base Schema]
+
+7. Consumption Samples Two and Three Using Built-in Views
 
 
 ### Data Integrity Controls and Logging
+
+[. . .]
 
 
 ### Security
@@ -176,7 +184,11 @@ In addition to having views to protect the database from security or structural 
 
 ### Extensibility
 
+[. . .]
+
 
 <br>
 
 ## Gaps and Opportunities
+
+[. . .]
