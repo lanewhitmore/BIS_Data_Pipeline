@@ -49,6 +49,7 @@ The following sections describe steps to deploy and automate __*BIS Pipeline*__.
     C. Once in, you will want to select 'New...' for the top panel 'User Variables'.
     
     D. Create the following User Variables:
+       
        * variable name: DATA_PATH variable value: local path to BIS_Data_Pipeline/Data/. Tip: No quotation marks.
         
        * variable name: DB_NAME variable value: BIS_ID.
@@ -76,7 +77,7 @@ The following sections describe steps to deploy and automate __*BIS Pipeline*__.
 
 ### Automation (Windows Users Only)
 
-1. Edit the bis_pipe_automation.bat file in NotePad to replace the local files from whitm's machine with:
+1. Edit the bis_pipe_automation.bat file in NotePad to replace the local files from my machine by changing:
     
     A. Anaconda environment where the necessary packages have been installed. For me, this was in: "C:/Users/whitm/anaconda3/Scripts/activate.bat" named 'bisenv'
     
@@ -93,6 +94,7 @@ The following sections describe steps to deploy and automate __*BIS Pipeline*__.
     C. Add a description of what the task is doing.
     
     D. Go to 'Triggers':
+       
        * Select 'New'
         
        * Set 'Begin the task' to 'On a schedule' in the drop down.
@@ -152,13 +154,17 @@ __Figure 2__<br>
 
 1. Pipeline Trigger -
 
+Automation Directions are available at the top of the README on GitHub in addition to pipeline setup directions in general. The pipeline trigger is unfortunately only available within Window's Operating System. The pipeline has been created by constructing a batch (.bat) file in NotePad that contains four line items; pathing to an Anaconda environment that has been used to construct the pipeline, current working directory pathing to the 'src' folder within the repository, pathing to the Anaconda python.exe file, and, finally, pathing to the python pipeline file. The batch file is then used within Window's Task Scheduler to create a new task that runs on the second of every month at 10am, as the BIS datasets are updated every month on the first at any given time. The task will open Window's Command Prompt at that time and date and run the commands outlined earlier to begin updating the database with the pipeline. This will either populate the database, if the pipeline is running for the first time, or extract only rows that have not been populated within the database to update the tables with. Doing so will show print functions tracking the pipeline's progress in the command prompt. Once the pipeline has completed, within the 'src' folder, that has been set as the working directory, a pipeline log will be populated with recent updates or any expected errors that may have occurred.
+
 2. File Download -
 
-3. FIle Extraction -
+3. File Extraction -
 
 4. Data Control Count Confirmation -
 
-5. Data Transformation and Database Load -
+5. Data Transformation and Database Load - 
+
+Following extraction and load, the pipeline then executes a (T)ransformation stage. This part of the process has been constructed by using custom built commands within Python that employ the use of the package PyMySQL and sqlalchemy’s create_engine function. The first formula creates the connection between the python script and the database cursor and closes the connection once the formula has run the SQL script in the cursor. The second function can be used to create tables on the database through the python script, this is mostly for future usability if needed. The third function uses the first connection function to push the data to the database. The formula creates a connection to the database, pulls the table’s columns from the database, uses those column names to extract the important columns from the pandas dataframe, and creates a dataframe column to be filled by the auto incremental IDs within the MySQL schema. The formula also pulls the existing index from the schema and uses the difference function to find indexes that have not yet been posted to the databases to extract then ultimately push to the schema. By comparing and extracting indexes, it removes the possibility of reposting the same data and end up with duplicate data throughout the database. In total, as Figure 1 points out, the transformation portion creates six tables, two for each CSV, and ten views that are to be used for easier access to the data and/or security purposes. 
 
 6. Consumption Sample One Using Base Schema]
 
@@ -179,7 +185,7 @@ In addition to having views to protect the database from security or structural 
 
 ### Scalability
 
-  Given that the nature of the data and ETL pipeline is storing the data as a structured relational database within MySQL, the database will be highly scalable. To cement this scalable construct, as the CSV files from BIS comes wide, with dates as columns rather than rows, each CSV is stored as two tables within the database with matching keys to call back. Doing so allows one table to be smaller, in the thousands or hundreds in rows, with more computationally expensive information like descriptions, country, and title. Meanwhile, the larger table, in the hundreds of thousands of rows, stores only row key, data, and value. Establishing the schema in this way allows for sub-querying to be more optimized as the smaller table, with more expensive information, can be filtered then the keys can be matched to inner join the much larger table containing dates and values. This process will make the database more scalable as it grows each month. For example, WS_LONG_CPI_csv_col.csv becomes two tables, Figure 1 above highlights this more clearly. Table one is the smaller table with the columns; consumer_prices_id, frequency, reference_area, unit_of_measure, and series. Table two is the longer table with consumer_prices_values_id, consumer_prices_id, date, and values. An example of the sub-query filtering is the view united_states_cp that grabs the IDs associated with United States reference_area, which, are then used to pull just under 1000 rows of dates and values in table 2. This greatly reduces the computation time to grab potentially thousands of rows.
+Given that the nature of the data and ETL pipeline is storing the data as a structured relational database within MySQL, the database will be highly scalable. To cement this scalable construct, as the CSV files from BIS comes wide, with dates as columns rather than rows, each CSV is stored as two tables within the database with matching keys to call back. Doing so allows one table to be smaller, in the thousands or hundreds in rows, with more computationally expensive information like descriptions, country, and title. Meanwhile, the larger table, in the hundreds of thousands of rows, stores only row key, data, and value. Establishing the schema in this way allows for sub-querying to be more optimized as the smaller table, with more expensive information, can be filtered then the keys can be matched to inner join the much larger table containing dates and values. This process will make the database more scalable as it grows each month. For example, WS_LONG_CPI_csv_col.csv becomes two tables, Figure 1 above highlights this more clearly. Table one is the smaller table with the columns; consumer_prices_id, frequency, reference_area, unit_of_measure, and series. Table two is the longer table with consumer_prices_values_id, consumer_prices_id, date, and values. An example of the sub-query filtering is the view united_states_cp that grabs the IDs associated with United States reference_area, which, are then used to pull just under 1000 rows of dates and values in table 2. This greatly reduces the computation time to grab potentially thousands of rows.
 
 
 <br>
