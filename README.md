@@ -8,10 +8,7 @@ __GitHub link: https://github.com/lanewhitmore/BIS_Data_Pipeline__<br>
 
 ## Context and Project
 
-The Bank for International Settlements (BIS) is an international “bank for central banks”
-supporting monetary and financial cooperation among its central bank owners around the
-globe (BIS, 2023). Among its roles, the BIS compiles and publicly publishes statistics that
-inform analysis of global financial stability and liquidy.
+The Bank for International Settlements (BIS) is an international “bank for central banks” supporting monetary and financial cooperation among its central bank owners around the globe (BIS, 2023). Among its roles, the BIS compiles and publicly publishes statistics that inform analysis of global financial stability and liquidy.
 
 __*BIS Pipeline*__ is a production-ready, automated data pipeline that extracts, loads, and transforms select BIS datasets, "surfacing" these for advanced analytics as described below under *Pipeline Functional and Non-Functional Overview*.
 
@@ -20,7 +17,7 @@ __*BIS Pipeline*__ is a production-ready, automated data pipeline that extracts,
 
 ## How to
 
-The following sections describe steps to deploy and automate *BIS Pipeline*.
+The following sections describe steps to deploy and automate __*BIS Pipeline*__.
 
 
 ### Pipeline Deployment
@@ -121,7 +118,7 @@ The following sections describe steps to deploy and automate *BIS Pipeline*.
 
 ## Data
 
-*BIS Pipeline* data includes US dollar exchange rates (monthly, quarterly and annual), consumer prices, and policy rates (monthly). These datasets are sourced from BIS’ statistics download page located at https://www.bis.org/statistics/full_data_sets.htm, baseline-summarized in Table 1 as follows:
+__*BIS Pipeline*__ data includes US dollar exchange rates (monthly, quarterly and annual), consumer prices, and policy rates (monthly). These datasets are sourced from BIS’ statistics download page located at https://www.bis.org/statistics/full_data_sets.htm, baseline-summarized in Table 1 as follows:
 
 __Table 1__<br>
 *BIS Datasets*
@@ -132,6 +129,8 @@ __Table 1__<br>
 | Policy rates (monthly)                                   | WS_CBPOL_M_csv_col.csv  | 39 rows (less header)<br>937 columns      |
 
 <br>
+
+As described below under *Pipeline Functional and Non-Functional Overview*, this "raw" source data is extracted, loaded, transformed, and ultimately persisted in a MySQL relational database for further analysis and "consumption." The following Figure 1 visualizes the physical model for this relational database:
 
 __Figure 1__<br>
 *BIS Entity Relationship Diagram*
