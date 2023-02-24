@@ -14,11 +14,14 @@ inform analysis of global financial stability and liquidy.
 
 ## How to
 
-### Deployment
+### Pipeline Deployment
 
-1. Go to [BIS ELT Pipeline](https://github.com/lanewhitmore/BIS_Data_Pipeline).&nbsp;
-2. Download repository by selecting the green 'Code' button and then 'Download Zip'.
+1. Go to [BIS ELT Pipeline](https://github.com/lanewhitmore/BIS_Data_Pipeline).
+
+2. Download repository by selecting the green 'Code' button and then 'Download Zip.'
+
 3. Extract zip file into preferred path.
+
 4. Building the schema:
     
     A. Open final_workbench.mwb in MySQL Workbench 8.0 CE.
@@ -38,17 +41,17 @@ inform analysis of global financial stability and liquidy.
     C. Once in, you will want to select 'New...' for the top panel 'User Variables'.
     
     D. Create the following User Variables:
-        i. variable name: DATA_PATH variable value: local path to BIS_Data_Pipeline/Data/. Tip: No quotation marks.
+        * variable name: DATA_PATH variable value: local path to BIS_Data_Pipeline/Data/. Tip: No quotation marks.
         
-        ii. variable name: DB_NAME variable value: BIS_ID.
+        * variable name: DB_NAME variable value: BIS_ID.
         
-        iii. variable name: HOST variable value: your local host name for MySQL server.
+        * variable name: HOST variable value: your local host name for MySQL server.
         
-        iiii. variable name: PASSWORD variable value: your local password for MySQL server.
+        * variable name: PASSWORD variable value: your local password for MySQL server.
         
-        iiiii. variable name: PORT variable value: your local port number for MySQL server.
+        * variable name: PORT variable value: your local port number for MySQL server.
         
-        iiiiii. variable name: USER variable value: your local user name for MySQL server.
+        * variable name: USER variable value: your local user name for MySQL server.
     
     E. Alternatively, these values can be manually typed into the top of the bis_pipe.py file (just below package imports) where environment variables are saved.
 
@@ -61,6 +64,21 @@ inform analysis of global financial stability and liquidy.
     B. Open pipeline.log in your local repository on NotePad to see tracking of populated database.
     
     C. If log shows population, refresh BIS_ID in MySQL Workbench 8.0 CE to see freshly populated tables and views.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### Automation (Windows Users Only)
 1. Edit the bis_pipe_automation.bat file in NotePad to replace the local files from whitm's machine with:
