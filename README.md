@@ -21,8 +21,6 @@ inform analysis of global financial stability and liquidy.
 ## How to
 
 
-<br>
-
 ### Pipeline Deployment
 
 1. Go to [BIS ELT Pipeline](https://github.com/lanewhitmore/BIS_Data_Pipeline).
@@ -75,8 +73,6 @@ inform analysis of global financial stability and liquidy.
     C. If log shows population, refresh BIS_ID in MySQL Workbench 8.0 CE to see freshly populated tables and views.
 
 
-<br>
-
 ### Automation (Windows Users Only)
 
 1. Edit the bis_pipe_automation.bat file in NotePad to replace the local files from whitm's machine with:
@@ -124,8 +120,6 @@ inform analysis of global financial stability and liquidy.
 ## Architecture
 
 
-<br>
-
 ### [architectural diagram]
 
 
@@ -143,6 +137,8 @@ __Table 1__<br>
 | Consumer prices                                          | WS_LONG_CPI_csv_col.csv | 240 rows (less header)<br>1,696 columns   |
 | Policy rates (monthly)                                   | WS_CBPOL_M_csv_col.csv  | 39 rows (less header)<br>937 columns      |
 
+<br>
+
 __Figure 1__<br>
 *BIS Entity Relationship Diagram*
 <img src="https://github.com/lanewhitmore/BIS_Data_Pipeline/blob/main/data/bis_id_ERD.png" width=130% height=130%>
@@ -150,30 +146,17 @@ __Figure 1__<br>
 
 <br>
 
-## Pipeline Functional Overview
+## Pipeline Functional and Non-Funcitonal Overview
 
 
-<br>
+### Pipeline Output and Utility
 
-### [output/utility]
-
-
-<br>
-
-## Pipeline Non-Functional Overview
-
-
-<br>
 
 ### Process
 
 
-<br>
-
 ### Data Integrity Controls and Logging
 
-
-<br>
 
 ### Security
 
@@ -182,14 +165,10 @@ There are multiple steps of security that can be taken when using MySQL as the h
 In addition to having views to protect the database from security or structural risks, steps have been taken within the pipeline itself to hide credentials. Credentials in this case are stored locally within the machine as environment variables. Another step of security we have taken into consideration is backing up the storage. In the case of this pipeline, CSV backups are stored within the “data” folder of the repository. In the event that the database is attacked and wiped in addition to the website being taken down or attacked in some way, the most recent version of the CSV files hosted on the website are stored as backups. 
 
 
-<br>
-
 ### Scalability
 
   Given that the nature of the data and ETL pipeline is storing the data as a structured relational database within MySQL, the database will be highly scalable. To cement this scalable construct, as the CSV files from BIS comes wide, with dates as columns rather than rows, each CSV is stored as two tables within the database with matching keys to call back. Doing so allows one table to be smaller, in the thousands or hundreds in rows, with more computationally expensive information like descriptions, country, and title. Meanwhile, the larger table, in the hundreds of thousands of rows, stores only row key, data, and value. Establishing the schema in this way allows for sub-querying to be more optimized as the smaller table, with more expensive information, can be filtered then the keys can be matched to inner join the much larger table containing dates and values. This process will make the database more scalable as it grows each month. For example, WS_LONG_CPI_csv_col.csv becomes two tables, Figure 1 above highlights this more clearly. Table one is the smaller table with the columns; consumer_prices_id, frequency, reference_area, unit_of_measure, and series. Table two is the longer table with consumer_prices_values_id, consumer_prices_id, date, and values. An example of the sub-query filtering is the view united_states_cp that grabs the IDs associated with United States reference_area, which, are then used to pull just under 1000 rows of dates and values in table 2. This greatly reduces the computation time to grab potentially thousands of rows.
 
-
-<br>
 
 ### Extensibility
 
