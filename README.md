@@ -17,11 +17,8 @@ inform analysis of global financial stability and liquidy.
 ### Deployment
 
 1. Go to [BIS ELT Pipeline](https://github.com/lanewhitmore/BIS_Data_Pipeline).
-
 2. Download repository by selecting the green 'Code' button and then 'Download Zip'.
-
-3. Extract zip file into preferred path. 
-  
+3. Extract zip file into preferred path.
 4. Building the schema:
     
     A. Open final_workbench.mwb in MySQL Workbench 8.0 CE.
