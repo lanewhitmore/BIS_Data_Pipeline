@@ -41,17 +41,17 @@ inform analysis of global financial stability and liquidy.
     C. Once in, you will want to select 'New...' for the top panel 'User Variables'.
     
     D. Create the following User Variables:
-        * variable name: DATA_PATH variable value: local path to BIS_Data_Pipeline/Data/. Tip: No quotation marks.
+       * variable name: DATA_PATH variable value: local path to BIS_Data_Pipeline/Data/. Tip: No quotation marks.
         
-        * variable name: DB_NAME variable value: BIS_ID.
+       * variable name: DB_NAME variable value: BIS_ID.
         
-        * variable name: HOST variable value: your local host name for MySQL server.
+       * variable name: HOST variable value: your local host name for MySQL server.
         
-        * variable name: PASSWORD variable value: your local password for MySQL server.
+       * variable name: PASSWORD variable value: your local password for MySQL server.
         
-        * variable name: PORT variable value: your local port number for MySQL server.
+       * variable name: PORT variable value: your local port number for MySQL server.
         
-        * variable name: USER variable value: your local user name for MySQL server.
+       * variable name: USER variable value: your local user name for MySQL server.
     
     E. Alternatively, these values can be manually typed into the top of the bis_pipe.py file (just below package imports) where environment variables are saved.
 
