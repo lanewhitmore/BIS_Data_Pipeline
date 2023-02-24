@@ -175,17 +175,17 @@ Following extraction and load, the pipeline then executes a (T)ransformation sta
 
 __Figure 3__<br>
 *Consumer Price Index vs. Federal Rates - 1980 to Present*
-![image](src/CPI_v_FedRate.svg)
+<img src = https://github.com/lanewhitmore/BIS_Data_Pipeline/blob/main/src/CPI_v_FedRate.svg>
 
 7. Consumption Samples Two and Three Using Built-in Views<br>
 
 __Figure 4__<br>
 *U.S. Dollar North American Exchange Rates - 1970 to Present*
-![USD North American Exchange Rates](src/USD_Exchange_rates.svg)<br>
+<img src = https://github.com/lanewhitmore/BIS_Data_Pipeline/blob/main/src/USD_Exchange_rates.svg>
 
 __Figure 5__<br>
 *U.S. Dollar International Exchange Rates - 1970 to Present*
-![USD International Exchange Rates](src/USD_Exchange_rates_int.svg)
+<img src = https://github.com/lanewhitmore/BIS_Data_Pipeline/blob/main/src/USD_Exchange_rates_int.svg>
 
 ### Data Integrity Controls and Logging
 
