@@ -10,7 +10,9 @@ __GitHub link: https://github.com/lanewhitmore/BIS_Data_Pipeline__<br>
 
 The Bank for International Settlements (BIS) is an international “bank for central banks” supporting monetary and financial cooperation among its central bank owners around the globe (BIS, 2023). Among its roles, the BIS compiles and publicly publishes statistics that inform analysis of global financial stability and liquidy.
 
-__*BIS Pipeline*__ is a production-ready, automated data pipeline that extracts, loads, and transforms select BIS datasets, "surfacing" these for advanced analytics as described below under *Pipeline Functional and Non-Functional Overview*.
+__*BIS Pipeline*__ is a production-ready, automated data pipeline that extracts, loads, transforms and persists select BIS datasets to a relational database for further analysis and "consumption." Data includes US dollar exchange rates (monthly, quarterly and annual), consumer prices, and policy rates (monthly).
+
+__*BIS Pipeline*__ consumption opportunities range from simple descriptive analytics and visualization to advanced predictive models. For example, the *base* pipeline provided here demonstrates automated output of Consumer Price Index (CPI) vs. the US federal discount rate, North American currency exchange rate comparisons, and exchange rate views across countries of interest. A simple and natural extension to these examples might be a time-series predictive model (e.g., ARIMA-based) to forecast CPI changes from the federal discount rate (as a leading indicator). Further opportunities exist through code and relational database schema extensions of this "open source" code base.
 
 
 <br>
@@ -118,7 +120,7 @@ The following sections describe steps to deploy and automate __*BIS Pipeline*__.
 
 ## Data
 
-__*BIS Pipeline*__ data includes US dollar exchange rates (monthly, quarterly and annual), consumer prices, and policy rates (monthly). These datasets are sourced from BIS’ statistics download page located at https://www.bis.org/statistics/full_data_sets.htm, baseline-summarized in Table 1 as follows:
+As summarized under *Context and Project*, __*BIS Pipeline*__ data includes US dollar exchange rates (monthly, quarterly and annual), consumer prices, and policy rates (monthly). These datasets are sourced from BIS’ statistics download page located at https://www.bis.org/statistics/full_data_sets.htm, baseline-summarized in Table 1 as follows:
 
 __Table 1__<br>
 *BIS Datasets*
@@ -128,9 +130,7 @@ __Table 1__<br>
 | Consumer prices                                          | WS_LONG_CPI_csv_col.csv | 240 rows (less header)<br>1,696 columns   |
 | Policy rates (monthly)                                   | WS_CBPOL_M_csv_col.csv  | 39 rows (less header)<br>937 columns      |
 
-<br>
-
-As described below under *Pipeline Functional and Non-Functional Overview*, this "raw" source data is extracted, loaded, transformed, and ultimately persisted in a MySQL relational database for further analysis and "consumption." The following Figure 1 visualizes the physical model for this relational database:
+As described below under *Pipeline Functional and Non-Functional Overview*, this "raw" source data is extracted, loaded, transformed, and ultimately persisted into a MySQL relational database for further analysis and "consumption." The following Figure 1 visualizes the physical model for this relational database:
 
 __Figure 1__<br>
 *BIS Entity Relationship Diagram*
@@ -140,9 +140,6 @@ __Figure 1__<br>
 <br>
 
 ## Pipeline Functional and Non-Functional Overview
-
-
-### Pipeline Output and Utility
 
 
 ### Pipeline Architecture and Process
