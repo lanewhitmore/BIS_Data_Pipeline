@@ -208,4 +208,8 @@ Given that the nature of the data and ETL pipeline is storing the data as a stru
 
 ## Gaps and Opportunities (Extensibility)
 
+As the pipeline is highly scalable moving forward, there are many opportunities moving forward. For instance, as more use cases immerge throughout  the creation of new teams or new ideas at the company, other datasets housed on BIS’s website can be easily implemented into the data pipeline. In addition to this, this creates many opportunities to create more specified views for teams to access their data with ease.<br> 
+Any gaps that exist stem from potential machine limitations when it comes to expanding the scope of the database to include most or all the datasets housed on BIS’s website. For instance, that massive increase in data will result in more space to house the data which may lead to further investment in hardware. So, while the pipeline itself will be highly scalable moving forward, the limitations of on-site hardware could potentially put hold on massively expanding the database.
+
+[. . . I added a couple small paragraphs with what I was thinking given the nature of our database and data... Go ahead and adjust or expand as necessary]
 [. . . Lane, feel free to weigh in; was going to extend comments at top about e.g., limited starting data set but otherwise opportunities to extend both consumption using current data and/or by adding additional, etc.]
