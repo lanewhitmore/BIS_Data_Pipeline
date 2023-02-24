@@ -17,6 +17,12 @@ __*BIS Pipeline*__ consumption opportunities range from simple descriptive analy
 
 <br>
 
+## Contents
+
+1. Archive folder - storage for previous notebooks, operating as backup.<br>
+2. Data folder - stores MySQL workbench model for forward engineering schema, backup CSVs after running the pipeline locally, also stores EER diagram that offers a visualization (EER Diagram) of the schema.<br>
+3. SRC folder - contains all three visualizations (in .SVG format) created during analytics/consumption portion of pipline, the pipeline in python and ipython notebook format (python file should be used for deployment), defaults.py makes changes to matplotlib formatting for consumption, and the pipeline log that tracks the actions/errors that occur during the process.<br>
+
 ## How to
 
 The following sections describe steps to deploy and automate __*BIS Pipeline*__.
@@ -167,13 +173,18 @@ Automation Directions are available at the top of the README on GitHub in additi
 Following extraction and load, the pipeline then executes a (T)ransformation stage. This part of the process has been constructed by using custom built commands within Python that employ the use of the package PyMySQL and sqlalchemy’s create_engine function. The first formula creates the connection between the python script and the database cursor and closes the connection once the formula has run the SQL script in the cursor. The second function can be used to create tables on the database through the python script, this is mostly for future usability if needed. The third function uses the first connection function to push the data to the database. The formula creates a connection to the database, pulls the table’s columns from the database, uses those column names to extract the important columns from the pandas dataframe, and creates a dataframe column to be filled by the auto incremental IDs within the MySQL schema. The formula also pulls the existing index from the schema and uses the difference function to find indexes that have not yet been posted to the databases to extract then ultimately push to the schema. By comparing and extracting indexes, it removes the possibility of reposting the same data and end up with duplicate data throughout the database. In total, as Figure 1 points out, the transformation portion creates six tables, two for each CSV, and ten views that are to be used for easier access to the data and/or security purposes. 
 
 6. Consumption Sample One Using Base Schema
-
-![US CPI vs. Federal Rate](src/CPI_v_FedRate.svg)
+__Figure 3__<br>
+*Consumer Price Index vs. Federal Rates - 1980 to Present*
+![image](src/CPI_v_FedRate.svg)
 
 7. Consumption Samples Two and Three Using Built-in Views
 
+__Figure 4__<br>
+*U.S. Dollar North American Exchange Rates - 1970 to Present*
 ![USD North American Exchange Rates](src/USD_Exchange_rates.svg)
 
+__Figure 5__<br>
+*U.S. Dollar International Exchange Rates - 1970 to Present*
 ![USD International Exchange Rates](src/USD_Exchange_rates_int.svg)
 
 ### Data Integrity Controls and Logging
