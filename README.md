@@ -148,7 +148,7 @@ The following Figure 2 overviews __*BIS Pipeline*__'s end-to-end architecture an
 
 __Figure 2__<br>
 *BIS Pipeline Architecture and Data Flow*
-[. . .]
+[. . . Dave to complete diagram and this section with deck ~Friday night/Saturday morning]
 
 1. Pipeline Trigger -
 
@@ -167,7 +167,7 @@ __Figure 2__<br>
 
 ### Data Integrity Controls and Logging
 
-[. . .]
+[. . . Dave to add supporting narrative here to summarize logging approach]
 
 
 ### Security
@@ -182,13 +182,8 @@ In addition to having views to protect the database from security or structural 
   Given that the nature of the data and ETL pipeline is storing the data as a structured relational database within MySQL, the database will be highly scalable. To cement this scalable construct, as the CSV files from BIS comes wide, with dates as columns rather than rows, each CSV is stored as two tables within the database with matching keys to call back. Doing so allows one table to be smaller, in the thousands or hundreds in rows, with more computationally expensive information like descriptions, country, and title. Meanwhile, the larger table, in the hundreds of thousands of rows, stores only row key, data, and value. Establishing the schema in this way allows for sub-querying to be more optimized as the smaller table, with more expensive information, can be filtered then the keys can be matched to inner join the much larger table containing dates and values. This process will make the database more scalable as it grows each month. For example, WS_LONG_CPI_csv_col.csv becomes two tables, Figure 1 above highlights this more clearly. Table one is the smaller table with the columns; consumer_prices_id, frequency, reference_area, unit_of_measure, and series. Table two is the longer table with consumer_prices_values_id, consumer_prices_id, date, and values. An example of the sub-query filtering is the view united_states_cp that grabs the IDs associated with United States reference_area, which, are then used to pull just under 1000 rows of dates and values in table 2. This greatly reduces the computation time to grab potentially thousands of rows.
 
 
-### Extensibility
-
-[. . .]
-
-
 <br>
 
-## Gaps and Opportunities
+## Gaps and Opportunities (Extensibility)
 
-[. . .]
+[. . . Lane, feel free to weigh in; was going to extend comments at top about e.g., limited starting data set but otherwise opportunities to extend both consumption using current data and/or by adding additional, etc.]
