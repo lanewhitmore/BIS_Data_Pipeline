@@ -3,6 +3,8 @@ __Lane Whitmore and Dave Friesen__<br>
 __lwhitmore@sandiego.edu, dfriesen@sandiego.edu__<br>
 __GitHub link: https://github.com/lanewhitmore/BIS_Data_Pipeline__<br>
 
+<link rel="stylesheet" href="github-markdown.css">
+
 
 ## Context and Project
 
