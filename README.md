@@ -5,6 +5,7 @@ __GitHub link: https://github.com/lanewhitmore/BIS_Data_Pipeline__<br>
 
 
 <br>
+
 ## Context and Project
 
 The Bank for International Settlements (BIS) is an international “bank for central banks”
@@ -16,10 +17,12 @@ inform analysis of global financial stability and liquidy.
 
 
 <br>
+
 ## How to
 
 
 <br>
+
 ### Pipeline Deployment
 
 1. Go to [BIS ELT Pipeline](https://github.com/lanewhitmore/BIS_Data_Pipeline).
@@ -73,6 +76,7 @@ inform analysis of global financial stability and liquidy.
 
 
 <br>
+
 ### Automation (Windows Users Only)
 
 1. Edit the bis_pipe_automation.bat file in NotePad to replace the local files from whitm's machine with:
@@ -116,14 +120,17 @@ inform analysis of global financial stability and liquidy.
 
 
 <br>
+
 ## Architecture
 
 
 <br>
+
 ### [architectural diagram]
 
 
 <br>
+
 ## Data
 
 *BIS Pipeline* data includes US dollar exchange rates (monthly, quarterly and annual), consumer prices, and policy rates (monthly). These datasets are sourced from BIS’ statistics download page located at https://www.bis.org/statistics/full_data_sets.htm, baseline-summarized in Table 1 as follows:
@@ -142,26 +149,32 @@ __Figure 1__<br>
 
 
 <br>
+
 ## Pipeline Functional Overview
 
 
 <br>
+
 ### [output/utility]
 
 
 <br>
+
 ## Pipeline Non-Functional Overview
 
 
 <br>
+
 ### Process
 
 
 <br>
+
 ### Data Integrity Controls and Logging
 
 
 <br>
+
 ### Security
 
 There are multiple steps of security that can be taken when using MySQL as the host for a relational database. Currently, there is no sensitive information that may need to have authorization to access within the database, but the pipeline and database is highly scalable. Due to this, it is within best practice to give privileges to users only when required. In this case, we have stored the data in 6 tables and made 10 views for those tables. Within the structure of the company, permissions can be given to access the connected database allowing the team concerned with tracking long term exchange rate trends to evaluate the strength of the U.S. Dollar in comparison to other countries. Doing so could add context to evaluating the economic strength for the United States, for example. Views have been created for just this purpose. In Figure above, the group of USD views define the long term relationships between the U.S. Dollar and various other currencies in potential countries of interest. Permission could be added for certain users working on such a project to access only these views rather than the entirety of the database to protect any future sensitive information that may be added to the database in addition to protecting the integrity of the database from any mistaken queries that may add false data to the structure. 
@@ -170,14 +183,17 @@ In addition to having views to protect the database from security or structural 
 
 
 <br>
+
 ### Scalability
 
   Given that the nature of the data and ETL pipeline is storing the data as a structured relational database within MySQL, the database will be highly scalable. To cement this scalable construct, as the CSV files from BIS comes wide, with dates as columns rather than rows, each CSV is stored as two tables within the database with matching keys to call back. Doing so allows one table to be smaller, in the thousands or hundreds in rows, with more computationally expensive information like descriptions, country, and title. Meanwhile, the larger table, in the hundreds of thousands of rows, stores only row key, data, and value. Establishing the schema in this way allows for sub-querying to be more optimized as the smaller table, with more expensive information, can be filtered then the keys can be matched to inner join the much larger table containing dates and values. This process will make the database more scalable as it grows each month. For example, WS_LONG_CPI_csv_col.csv becomes two tables, Figure 1 above highlights this more clearly. Table one is the smaller table with the columns; consumer_prices_id, frequency, reference_area, unit_of_measure, and series. Table two is the longer table with consumer_prices_values_id, consumer_prices_id, date, and values. An example of the sub-query filtering is the view united_states_cp that grabs the IDs associated with United States reference_area, which, are then used to pull just under 1000 rows of dates and values in table 2. This greatly reduces the computation time to grab potentially thousands of rows.
 
 
 <br>
+
 ### Extensibility
 
 
 <br>
+
 ## Gaps and Opportunities
