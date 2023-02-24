@@ -20,15 +20,10 @@ inform analysis of global financial stability and liquidy.
 2. Download repository by selecting the green 'Code' button and then 'Download Zip'.
 3. Extract zip file into preferred path.
 4. Building the schema:
-    
     A. Open final_workbench.mwb in MySQL Workbench 8.0 CE.
-    
     B. With the model open, click the 'Database' tab and select 'Forward Engineer'.
-    
     C. Click next through every option leaving the default options checked.
-    
     D. Refresh local databases 'BIS_ID' should now be available.
-
 5. Set Operating System Environment Variables (Directions for Windows OS Users):
     
     A. In the windows search bar type 'Edit the system environment variables' and select it.
