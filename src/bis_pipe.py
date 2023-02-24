@@ -269,14 +269,9 @@ for i in zip(df_values, value_table_names):
     populate_table(table_name= i[1], df = df_values[i[0]])
     print()
 
-
 # **********************************************************************
 # Data Consumption
 # **********************************************************************
-
-
-
-
 
 # Establish CPI and Fed Rate Dataframes
 
