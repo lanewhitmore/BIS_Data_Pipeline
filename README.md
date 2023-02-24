@@ -12,7 +12,7 @@ The Bank for International Settlements (BIS) is an international “bank for cen
 
 __*BIS Pipeline*__ is a production-ready, automated data pipeline that extracts, loads, transforms and persists select BIS datasets to a relational database for further analysis and "consumption." Data includes US dollar exchange rates (monthly, quarterly and annual), consumer prices, and policy rates (monthly).
 
-__*BIS Pipeline*__ consumption opportunities range from simple descriptive analytics and visualization to advanced predictive models. For example, the *base* pipeline provided here demonstrates automated output of Consumer Price Index (CPI) vs. the US federal discount rate, North American currency exchange rate comparisons, and exchange rate views across countries of interest. A simple and natural extension to these examples might be a time-series predictive model (e.g., ARIMA-based) to forecast CPI changes from the federal discount rate (as a leading indicator). Further opportunities exist through code and relational database schema extensions of this "open source" code base.
+__*BIS Pipeline*__ consumption opportunities range from simple descriptive analytics and visualization to advanced predictive models. For example, the *base* pipeline provided here demonstrates automated output of Consumer Price Index (CPI) vs. the US federal discount rate, North American currency exchange rate comparisons, and exchange rate views across countries of interest. A simple and natural extension to these examples might be a time-series predictive model (e.g., ARIMA-based) to forecast CPI changes from the federal discount rate (as a leading indicator). Further opportunities exist through code and relational database schema extensions to this "open source" code base.
 
 
 <br>
@@ -144,7 +144,19 @@ __Figure 1__<br>
 
 ### Pipeline Architecture and Process
 
+The following Figure 2 overviews __*BIS Pipeline*__'s end-to-end architecture and data flow, followed by a walkthrough of each step in the process:
+
+__Figure 2__<br>
+*BIS Pipeline Architecture and Data Flow*
 #### [architectural diagram]
+
+<br>
+
+1. [. . .]
+
+2. [. . .]
+
+3. [. . .]
 
 
 ### Data Integrity Controls and Logging
