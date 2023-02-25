@@ -17,7 +17,7 @@ __*BIS Pipeline*__ consumption opportunities range from simple descriptive analy
 
 <br>
 
-## Contents
+## Repository Contents
 
 1. Archive folder - storage for previous notebooks, operating as backup.<br>
 2. Data folder - stores MySQL workbench model for forward engineering schema, backup CSVs after running the pipeline locally, also stores EER diagram that offers a visualization (EER Diagram) of the schema.<br>
@@ -129,7 +129,7 @@ The following sections describe steps to deploy and automate __*BIS Pipeline*__.
 
 <br>
 
-## Data
+## Source Data
 
 As summarized under *Opportunity and Solution*, __*BIS Pipeline*__ data includes US dollar exchange rates (monthly, quarterly and annual), consumer prices, and policy rates (monthly). These datasets are sourced from BIS’ statistics download page located at https://www.bis.org/statistics/full_data_sets.htm, baseline-summarized in Table 1 as follows:
 
@@ -141,11 +141,7 @@ __Table 1__<br>
 | Consumer prices                                          | WS_LONG_CPI_csv_col.csv | 240 rows (less header)<br>1,696 columns   |
 | Policy rates (monthly)                                   | WS_CBPOL_M_csv_col.csv  | 39 rows (less header)<br>937 columns      |
 
-As described below under *Pipeline Functional and Non-Functional Overview*, this "raw" source data is extracted, loaded, transformed, and ultimately persisted into a MySQL relational database for further analysis and "consumption." The following Figure 1 visualizes the physical model for this relational database:
-
-__Figure 1__<br>
-*BIS Entity Relationship Diagram*
-<img src="https://github.com/lanewhitmore/BIS_Data_Pipeline/blob/main/data/bis_id_ERD.png" width=130% height=130%>
+This "raw" source data is extracted, loaded, transformed, and ultimately persisted into a MySQL relational database for further analysis and "consumption." Reference *Pipeline Functional and Non-Functional Overview* below for further detail.
 
 
 <br>
@@ -155,148 +151,44 @@ __Figure 1__<br>
 
 ### Pipeline Architecture and Process
 
-The following Figure 2 overviews __*BIS Pipeline*__'s end-to-end architecture and data flow, followed by a walkthrough of each step in the process:
+The following Figure 1 overviews __*BIS Pipeline*__'s end-to-end architecture and data flow, followed by a walkthrough of each step and data stage in the process:
 
-__Figure 2__<br>
+__Figure 1__<br>
 *BIS Pipeline Architecture and Data Flow*
 <img src="https://github.com/lanewhitmore/BIS_Data_Pipeline/blob/main/src/bis_pipe_flow.png" width=130% height=130%>
 
+1. Per *Data* section above: https://www.bis.org/statistics/full_data_sets.htm
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1. Pipeline Trigger -<br>
+2.a. Pipeline Trigger -<br>
 Automation Directions are available at the top of the README on GitHub in addition to pipeline setup directions in general. The pipeline trigger is unfortunately only available within Window's Operating System. The pipeline has been created by constructing a batch (.bat) file in NotePad that contains four line items; pathing to an Anaconda environment that has been used to construct the pipeline, current working directory pathing to the 'src' folder within the repository, pathing to the Anaconda python.exe file, and, finally, pathing to the python pipeline file. The batch file is then used within Window's Task Scheduler to create a new task that runs on the second of every month at 10am, as the BIS datasets are updated every month on the first at any given time. The task will open Window's Command Prompt at that time and date and run the commands outlined earlier to begin updating the database with the pipeline. This will either populate the database, if the pipeline is running for the first time, or extract only rows that have not been populated within the database to update the tables with. Doing so will show print functions tracking the pipeline's progress in the command prompt. Once the pipeline has completed, within the 'src' folder, that has been set as the working directory, a pipeline log will be populated with recent updates or any expected errors that may have occurred.
 
-2. File Download -<br>
+2.b. File Download -<br>
+[. . .]
 
-3. File Extraction -<br>
+3. full_xru_csv.zip, full_cbpol_m_csv.zip, and full_long_cpi_csv.zip as replicated directly from bis.org.
 
-4. Data Control Count Confirmation -<br>
+4. File Extraction and Load -<br>
+[. . .]
 
+5. WS_XRU_csv_col.csv, WS_LONG_CPI_csv_col.csv, WS_CBPOL_M_csv_col.csv as extracted from (3).
 
-5. Data Transformation and Database Load -<br>
+6. Data Transformation and Database Load -<br>
 Following extraction and load, the pipeline then executes a transformation stage. This part of the process has been constructed by using custom built commands within Python that employ the use of the package PyMySQL and sqlalchemy’s create_engine function. The first formula creates the connection between the python script and the database cursor and closes the connection once the formula has run the SQL script in the cursor. The second function can be used to create tables on the database through the python script, this is mostly for future usability if needed. The third function uses the first connection function to push the data to the database. The formula creates a connection to the database, pulls the table’s columns from the database, uses those column names to extract the important columns from the pandas dataframe, and creates a dataframe column to be filled by the auto incremental IDs within the MySQL schema. The formula also pulls the existing index from the schema and uses the difference function to find indexes that have not yet been posted to the databases to extract then ultimately push to the schema. By comparing and extracting indexes, it removes the possibility of reposting the same data and end up with duplicate data throughout the database. In total, as Figure 1 points out, the transformation portion creates six tables, two for each CSV, and ten views that are to be used for easier access to the data and/or security purposes. 
 
-6. Consumption Sample One Using Base Schema<br>
+7. The following Figure 2 visualizes the physical model for *BIS_Pipeline*'s relational database:
+
+__Figure 2__<br>
+*BIS Entity Relationship Diagram*
+<img src="https://github.com/lanewhitmore/BIS_Data_Pipeline/blob/main/data/bis_id_ERD.png" width=130% height=130%>
+
+8.a. Consumption Sample One Using Base Schema<br>
 The consumption sample below has been created at the end of the pipeline by pulling the consumer price index and federal rates from the United States. It acts as a sample of a data analytics dashboard that could automatically be constructed during the pipeline. 
 
 __Figure 3__<br>
 *Consumer Price Index vs. Federal Rates - 1980 to Present*
 <img src = https://github.com/lanewhitmore/BIS_Data_Pipeline/blob/main/src/CPI_v_FedRate.svg>
 
-7. Consumption Samples Two and Three Using Built-in Views<br>
+8.b. Consumption Samples Two and Three Using Built-in Views<br>
 The consumption samples below are created by pulling the pre-filtered views that have been constructed within the schema. This serves as an example of potential use cases when using views. Views can be used for convienence when a query is used often, but, in addition to that, views can serve as security in the database. More on this topic is explained in the security section. Figures 4 and 5 below can offer insight into how the U.S. economy is performing by evaluating the U.S. Dollar in proportion to various other countries. Figure 4 highlights the exchange rate with two other North American countries Canada and Mexico over the span of 50 years. It points out that the relationship between the American Dollar and the Canadian Dollar have stayed static over the years while the exchange rate has steadily climbed going to Mexican Peso. For instance, this could point out that while Canadian and U.S. economies have stayed strong, or at least stayed relative to one another, the Mexican economy has struggled in comparison. 
 
 __Figure 4__<br>
@@ -308,6 +200,9 @@ Figure 5 offers more examples from  the views about potential analytics use case
 __Figure 5__<br>
 *U.S. Dollar International Exchange Rates - 1970 to Present*
 <img src = https://github.com/lanewhitmore/BIS_Data_Pipeline/blob/main/src/USD_Exchange_rates_int.svg>
+
+
+<br>
 
 ### Data Integrity Controls and Logging
 
