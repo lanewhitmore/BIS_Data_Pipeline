@@ -251,7 +251,7 @@ Given that the nature of the data and ETL pipeline is storing the data as a stru
 
 __*BIS Pipeline*__ gaps may be summarized in two areas: *baseline*-only scope and *potential* pipline environment limitations.
 
-As highlighted above, __*BIS Pipeline*__ was created as an automated pipline framework for BIS - and, prospectively, complementary - data. Considering this, output examples are limited to *baseline* data and analytical visualizations. That said, pipeline extensibility was considered in design and implementation, and is encouraged.
+As highlighted above, __*BIS Pipeline*__ was created as an automated pipeline framework for BIS - and, prospectively, complementary - data. Considering this, output examples are limited to *baseline* data and analytical visualizations. That said, pipeline extensibility was considered in design and implementation, and is encouraged.
 
 Regarding potential environment limitations, executing the pipeline on a local (e.g., vs. scalable cloud) environment may limit options when expanding the scope of the database to include most or all the datasets housed on BIS’s website. For instance, that substantial increase in data will result in more space to house the data which may lead to further investment in hardware. So, while the pipeline itself will be highly scalable moving forward, the limitations of on-site hardware could potentially put hold on materially expanding the database.
 
