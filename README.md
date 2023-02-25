@@ -1,18 +1,18 @@
 # BIS Pipeline - Bank for International Settlements (BIS)
 __Lane Whitmore and Dave Friesen__<br>
 __lwhitmore@sandiego.edu, dfriesen@sandiego.edu__<br>
-__GitHub link: https://github.com/lanewhitmore/BIS_Data_Pipeline__<br>
+__GitHub: https://github.com/lanewhitmore/BIS_Data_Pipeline__<br>
 
 
 <br>
 
-## Context and Project
+## Opportunity and Solution
 
-The Bank for International Settlements (BIS) is an international “bank for central banks” supporting monetary and financial cooperation among its central bank owners around the globe (BIS, 2023). Among its roles, the BIS compiles and publicly publishes statistics that inform analysis of global financial stability and liquidy.
+The Bank for International Settlements (BIS) is an international “bank for central banks” supporting monetary and financial cooperation among its central bank owners around the globe (BIS, 2023). Among its roles, the BIS compiles and publicly publishes a "gold mine" of data: statistics rates, and metrics that inform analysis of global financial stability and liquidity. This information spans banking, currency, debt, derivatives, credit, property, consumers, and financial market domains. Leverage of this data can be accelerated through automation and structure.
 
-__*BIS Pipeline*__ is a production-ready, automated data pipeline that extracts, loads, transforms and persists select BIS datasets to a relational database for further analysis and "consumption." Data includes US dollar exchange rates (monthly, quarterly and annual), consumer prices, and policy rates (monthly).
+__*BIS Pipeline*__ does just that. It provides a production-ready, automated data pipeline to extract, load, transform, and persist select BIS datasets to a relational database for further analysis and flexible "consumption." Data assets "surfaced" through the baseline version of __*BIS Pipeline*__ include US dollar exchange rates (monthly, quarterly and annual), consumer prices, and policy rates (monthly).
 
-__*BIS Pipeline*__ consumption opportunities range from simple descriptive analytics and visualization to advanced predictive models. For example, the *base* pipeline provided here demonstrates automated output of Consumer Price Index (CPI) vs. the US federal discount rate, North American currency exchange rate comparisons, and exchange rate views across countries of interest. A simple and natural extension to these examples might be a time-series predictive model (e.g., ARIMA-based) to forecast CPI changes from the federal discount rate (as a leading indicator). Further opportunities exist through code and relational database schema extensions to this "open source" code base.
+__*BIS Pipeline*__ consumption opportunities range from simple descriptive analytics and visualization to advanced predictive models. For example, the *base* pipeline provided here demonstrates automated output of Consumer Price Index (CPI) vs. the US federal discount rate, North American currency exchange rate comparisons, and exchange rate views across countries of interest. A simple and natural extension to these examples might be a time-series predictive model (e.g., ARIMA-based) to forecast CPI changes from the federal discount rate (as a leading indicator). Further opportunities exist through code and relational database schema extensions to this "open source" code base, and even third-party data augmentation.
 
 
 <br>
@@ -22,6 +22,9 @@ __*BIS Pipeline*__ consumption opportunities range from simple descriptive analy
 1. Archive folder - storage for previous notebooks, operating as backup.<br>
 2. Data folder - stores MySQL workbench model for forward engineering schema, backup CSVs after running the pipeline locally, also stores EER diagram that offers a visualization (EER Diagram) of the schema.<br>
 3. SRC folder - contains all three visualizations (in .SVG format) created during analytics/consumption portion of pipline, the pipeline in python and ipython notebook format (python file should be used for deployment), defaults.py makes changes to matplotlib formatting for consumption, and the pipeline log that tracks the actions/errors that occur during the process.<br>
+
+
+<br>
 
 ## How to
 
@@ -121,14 +124,14 @@ The following sections describe steps to deploy and automate __*BIS Pipeline*__.
     
     B. 'pause' has been added to bis_pipe_automation.bat to show the prints within the Window's command prompt until a key is pressed to exit.
     
-    C. Task Scheduler will now populate BIS_ID with monthly CSV updates on the 2nd of every month at 10AM PST. Logs should be used to ensure the process has been     completed. 
+    C. Task Scheduler will now populate BIS_ID with monthly CSV updates on the 2nd of every month at 10AM PST. Logs should be used to ensure the process has been     completed.
 
 
 <br>
 
 ## Data
 
-As summarized under *Context and Project*, __*BIS Pipeline*__ data includes US dollar exchange rates (monthly, quarterly and annual), consumer prices, and policy rates (monthly). These datasets are sourced from BIS’ statistics download page located at https://www.bis.org/statistics/full_data_sets.htm, baseline-summarized in Table 1 as follows:
+As summarized under *Opportunity and Solution*, __*BIS Pipeline*__ data includes US dollar exchange rates (monthly, quarterly and annual), consumer prices, and policy rates (monthly). These datasets are sourced from BIS’ statistics download page located at https://www.bis.org/statistics/full_data_sets.htm, baseline-summarized in Table 1 as follows:
 
 __Table 1__<br>
 *BIS Datasets*
@@ -157,6 +160,121 @@ The following Figure 2 overviews __*BIS Pipeline*__'s end-to-end architecture an
 __Figure 2__<br>
 *BIS Pipeline Architecture and Data Flow*
 <br>[. . . Dave to complete diagram and this section with deck ~Friday night/Saturday morning]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 1. Pipeline Trigger -<br>
 Automation Directions are available at the top of the README on GitHub in addition to pipeline setup directions in general. The pipeline trigger is unfortunately only available within Window's Operating System. The pipeline has been created by constructing a batch (.bat) file in NotePad that contains four line items; pathing to an Anaconda environment that has been used to construct the pipeline, current working directory pathing to the 'src' folder within the repository, pathing to the Anaconda python.exe file, and, finally, pathing to the python pipeline file. The batch file is then used within Window's Task Scheduler to create a new task that runs on the second of every month at 10am, as the BIS datasets are updated every month on the first at any given time. The task will open Window's Command Prompt at that time and date and run the commands outlined earlier to begin updating the database with the pipeline. This will either populate the database, if the pipeline is running for the first time, or extract only rows that have not been populated within the database to update the tables with. Doing so will show print functions tracking the pipeline's progress in the command prompt. Once the pipeline has completed, within the 'src' folder, that has been set as the working directory, a pipeline log will be populated with recent updates or any expected errors that may have occurred.
