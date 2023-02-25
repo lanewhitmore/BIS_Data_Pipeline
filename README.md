@@ -10,9 +10,9 @@ __GitHub: https://github.com/lanewhitmore/BIS_Data_Pipeline__<br>
 
 The Bank for International Settlements (BIS) is an international “bank for central banks” supporting monetary and financial cooperation among its central bank owners around the globe (BIS, 2023). Among its roles, the BIS compiles and publicly publishes a "gold mine" of data: statistics rates, and metrics that inform analysis of global financial stability and liquidity. This information spans banking, currency, debt, derivatives, credit, property, consumers, and financial market domains. Leverage of this data can be accelerated through automation and structure.
 
-__*BIS Pipeline*__ does just that. It provides a production-ready, automated data pipeline to extract, load, transform, and persist select BIS datasets to a relational database for further analysis and flexible "consumption." Data assets "surfaced" through the baseline version of __*BIS Pipeline*__ include US dollar exchange rates (monthly, quarterly and annual), consumer prices, and policy rates (monthly).
+__*BIS Pipeline*__ demonstrates this leverage. It provides a production-ready, automated data pipeline to extract, load, transform, and persist select BIS datasets to a relational database for further analysis and flexible "consumption." Data assets "surfaced" through the baseline version of __*BIS Pipeline*__ include US dollar exchange rates, consumer prices, and policy rates.
 
-__*BIS Pipeline*__ consumption opportunities range from simple descriptive analytics and visualization to advanced predictive models. For example, the *base* pipeline provided here demonstrates automated output of Consumer Price Index (CPI) vs. the US federal discount rate, North American currency exchange rate comparisons, and exchange rate views across countries of interest. A simple and natural extension to these examples might be a time-series predictive model (e.g., ARIMA-based) to forecast CPI changes from the federal discount rate (as a leading indicator). Further opportunities exist through code and relational database schema extensions to this "open source" code base, and even third-party data augmentation.
+Consumption opportunities using __*BIS Pipeline*__ as a baseline range from simple descriptive analytics and visualization to advanced predictive models. For example, the *base* pipeline provided here demonstrates automated output of Consumer Price Index (CPI) vs. the US federal discount rate, North American currency exchange rate comparisons, and exchange rate views across countries of interest. A simple and natural extension to these examples might be a time-series predictive model (e.g., ARIMA-based) to forecast CPI changes from the federal discount rate (as a leading indicator). Further opportunities exist through code and relational database schema extensions to this "open source" code base, and even third-party data augmentation.
 
 
 <br>
@@ -131,7 +131,7 @@ The following sections describe steps to deploy and automate __*BIS Pipeline*__.
 
 ## Source Data
 
-As summarized under *Opportunity and Solution*, __*BIS Pipeline*__ data includes US dollar exchange rates (monthly, quarterly and annual), consumer prices, and policy rates (monthly). These datasets are sourced from BIS’ statistics download page located at https://www.bis.org/statistics/full_data_sets.htm, baseline-summarized in Table 1 as follows:
+As summarized under *Opportunity and Solution*, __*BIS Pipeline*__ data includes US dollar exchange rates (monthly, quarterly and annual), consumer prices, and policy rates (monthly). These datasets are sourced from BIS’ statistics download page located at https://www.bis.org/statistics/full_data_sets.htm, summarized in Table 1 as follows:
 
 __Table 1__<br>
 *BIS Datasets*
@@ -141,7 +141,7 @@ __Table 1__<br>
 | Consumer prices                                          | WS_LONG_CPI_csv_col.csv | 240 rows (less header)<br>1,696 columns   |
 | Policy rates (monthly)                                   | WS_CBPOL_M_csv_col.csv  | 39 rows (less header)<br>937 columns      |
 
-This "raw" source data is extracted, loaded, transformed, and ultimately persisted into a MySQL relational database for further analysis and "consumption." Reference *Pipeline Functional and Non-Functional Overview* below for further detail.
+This "raw" source data is extracted, loaded, transformed, and ultimately persisted into a MySQL relational database for further analysis and "consumption." The following *Pipeline Functional and Non-Functional Overview* describes this process in further detail.
 
 
 <br>
@@ -151,11 +151,37 @@ This "raw" source data is extracted, loaded, transformed, and ultimately persist
 
 ### Pipeline Architecture and Process
 
-The following Figure 1 overviews __*BIS Pipeline*__'s end-to-end architecture and data flow, followed by a walkthrough of each step and data stage in the process:
+Figure 1 overviews __*BIS Pipeline*__'s end-to-end architecture and data flow, followed by a summary of each step and data stage in the process:
 
 __Figure 1__<br>
 *BIS Pipeline Architecture and Data Flow*
 <img src="https://github.com/lanewhitmore/BIS_Data_Pipeline/blob/main/src/bis_pipe_flow.png" width=130% height=130%>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <br>
