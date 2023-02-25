@@ -159,7 +159,7 @@ The following Figure 2 overviews __*BIS Pipeline*__'s end-to-end architecture an
 
 __Figure 2__<br>
 *BIS Pipeline Architecture and Data Flow*
-<br>
+<img src="https://github.com/lanewhitmore/BIS_Data_Pipeline/blob/main/src/bis_pipe_flow.png" width=130% height=130%>
 
 
 
