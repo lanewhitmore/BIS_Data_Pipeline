@@ -5,7 +5,7 @@ __GitHub: https://github.com/lanewhitmore/BIS_Data_Pipeline__<br>
 
 
 <br>
-
+ 
 ## Opportunity and Solution
 
 The Bank for International Settlements (BIS) is an international “bank for central banks” supporting monetary and financial cooperation among its central bank owners around the globe (BIS, 2023). Among its roles, the BIS compiles and publicly publishes a "gold mine" of data: statistics rates, and metrics that inform analysis of global financial stability and liquidity. This information spans banking, currency, debt, derivatives, credit, property, consumers, and financial market domains. Leverage of this data can be accelerated through automation and structure.
@@ -234,7 +234,7 @@ In addition to having views to protect the database from security or structural 
 
 ### Data Integrity Controls and Logging
 
-THe *Pipline Architecture and Process* section highlights logging of successful processing or exceptions, with process Step 4.b explicitly noting a data completeness control. These are simply emphasized here as key "non-functional" considerations for an automated pipeline.
+The *Pipline Architecture and Process* section highlights logging of successful processing or exceptions, with process Step 4.b explicitly noting a data completeness control. These are simply emphasized here as key "non-functional" considerations for an automated pipeline.
 
 
 ### Pipeline Architecture and Process
@@ -249,20 +249,10 @@ Given that the nature of the data and ETL pipeline is storing the data as a stru
 
 ## Gaps and Opportunities (Extensibility)
 
-Any gaps that exist stem from potential machine limitations when it comes to expanding the scope of the database to include most or all the datasets housed on BIS’s website. For instance, that massive increase in data will result in more space to house the data which may lead to further investment in hardware. So, while the pipeline itself will be highly scalable moving forward, the limitations of on-site hardware could potentially put hold on massively expanding the database.
+__*BIS Pipeline*__ gaps may be summarized in two areas: *baseline*-only scope and *potential* pipline environment limitations.
 
+As highlighted above, __*BIS Pipeline*__ was created as an automated pipline framework for BIS - and, prospectively, complementary - data. Considering this, output examples are limited to *baseline* data and analytical visualizations. That said, pipeline extensibility was considered in design and implementation and is encouraged.
 
+Regarding potential environment limitations, executing the pipeline on a local (e.g., vs. scalable cloud) environment may limit options when expanding the scope of the database to include most or all the datasets housed on BIS’s website. For instance, that massive increase in data will result in more space to house the data which may lead to further investment in hardware. So, while the pipeline itself will be highly scalable moving forward, the limitations of on-site hardware could potentially put hold on materially expanding the database.
 
-
-
-As the pipeline is highly scalable moving forward, there are many opportunities moving forward. For instance, as more use cases immerge throughout the creation of new teams or new ideas at the company, other datasets housed on BIS’s website can be easily implemented into the data pipeline. In addition to this, this creates many opportunities to create more specified views for teams to access their data with ease.<br> 
-
-
-
-
-
-
-
-
-[. . . I added a couple small paragraphs with what I was thinking given the nature of our database and data... Go ahead and adjust or expand as necessary]
-[. . . Lane, feel free to weigh in; was going to extend comments at top about e.g., limited starting data set but otherwise opportunities to extend both consumption using current data and/or by adding additional, etc.]
+In conclusion, __*BIS Pipline*__ was developed as a *base* framework to enable and extend analytics and usage opportunities. As noted above under *Opportunity and Solution*, possibilities range from descriptive analytics and visualization to advanced predictive models and others. The pipeline's architecture,  implementation approach, and automation support data and consumption pattern extensions only limited by user ambition.
