@@ -21,7 +21,7 @@ __*BIS Pipeline*__ consumption opportunities range from simple descriptive analy
 
 1. Archive folder - storage for previous notebooks, operating as backup.<br>
 2. Data folder - stores MySQL workbench model for forward engineering schema, backup CSVs after running the pipeline locally, also stores EER diagram that offers a visualization (EER Diagram) of the schema.<br>
-3. SRC folder - contains all three visualizations (in .SVG format) created during analytics/consumption portion of pipline, the pipeline in python and ipython notebook format (python file should be used for deployment), defaults.py makes changes to matplotlib formatting for consumption, and the pipeline log that tracks the actions/errors that occur during the process.<br>
+3. SRC folder - contains all three visualizations (in .SVG format) created during analytics/consumption portion of pipeline, the pipeline in python and ipython notebook format (python file should be used for deployment), defaults.py makes changes to matplotlib formatting for consumption, and the pipeline log that tracks the actions/errors that occur during the process.<br>
 
 
 <br>
@@ -287,19 +287,23 @@ Automation Directions are available at the top of the README on GitHub in additi
 
 
 5. Data Transformation and Database Load -<br>
-Following extraction and load, the pipeline then executes a (T)ransformation stage. This part of the process has been constructed by using custom built commands within Python that employ the use of the package PyMySQL and sqlalchemy’s create_engine function. The first formula creates the connection between the python script and the database cursor and closes the connection once the formula has run the SQL script in the cursor. The second function can be used to create tables on the database through the python script, this is mostly for future usability if needed. The third function uses the first connection function to push the data to the database. The formula creates a connection to the database, pulls the table’s columns from the database, uses those column names to extract the important columns from the pandas dataframe, and creates a dataframe column to be filled by the auto incremental IDs within the MySQL schema. The formula also pulls the existing index from the schema and uses the difference function to find indexes that have not yet been posted to the databases to extract then ultimately push to the schema. By comparing and extracting indexes, it removes the possibility of reposting the same data and end up with duplicate data throughout the database. In total, as Figure 1 points out, the transformation portion creates six tables, two for each CSV, and ten views that are to be used for easier access to the data and/or security purposes. 
+Following extraction and load, the pipeline then executes a transformation stage. This part of the process has been constructed by using custom built commands within Python that employ the use of the package PyMySQL and sqlalchemy’s create_engine function. The first formula creates the connection between the python script and the database cursor and closes the connection once the formula has run the SQL script in the cursor. The second function can be used to create tables on the database through the python script, this is mostly for future usability if needed. The third function uses the first connection function to push the data to the database. The formula creates a connection to the database, pulls the table’s columns from the database, uses those column names to extract the important columns from the pandas dataframe, and creates a dataframe column to be filled by the auto incremental IDs within the MySQL schema. The formula also pulls the existing index from the schema and uses the difference function to find indexes that have not yet been posted to the databases to extract then ultimately push to the schema. By comparing and extracting indexes, it removes the possibility of reposting the same data and end up with duplicate data throughout the database. In total, as Figure 1 points out, the transformation portion creates six tables, two for each CSV, and ten views that are to be used for easier access to the data and/or security purposes. 
 
 6. Consumption Sample One Using Base Schema<br>
+The consumption sample below has been created at the end of the pipeline by pulling the consumer price index and federal rates from the United States. It acts as a sample of a data analytics dashboard that could automatically be constructed during the pipeline. 
 
 __Figure 3__<br>
 *Consumer Price Index vs. Federal Rates - 1980 to Present*
 <img src = https://github.com/lanewhitmore/BIS_Data_Pipeline/blob/main/src/CPI_v_FedRate.svg>
 
 7. Consumption Samples Two and Three Using Built-in Views<br>
+The consumption samples below are created by pulling the pre-filtered views that have been constructed within the schema. This serves as an example of potential use cases when using views. Views can be used for convienence when a query is used often, but, in addition to that, views can serve as security in the database. More on this topic is explained in the security section. Figures 4 and 5 below can offer insight into how the U.S. economy is performing by evaluating the U.S. Dollar in proportion to various other countries. Figure 4 highlights the exchange rate with two other North American countries Canada and Mexico over the span of 50 years. It points out that the relationship between the American Dollar and the Canadian Dollar have stayed static over the years while the exchange rate has steadily climbed going to Mexican Peso. For instance, this could point out that while Canadian and U.S. economies have stayed strong, or at least stayed relative to one another, the Mexican economy has struggled in comparison. 
 
 __Figure 4__<br>
 *U.S. Dollar North American Exchange Rates - 1970 to Present*
 <img src = https://github.com/lanewhitmore/BIS_Data_Pipeline/blob/main/src/USD_Exchange_rates.svg>
+
+Figure 5 offers more examples from  the views about potential analytics use cases from the database. The U.K., China, and Japan all have been world powers at some point in economic history. Figure 5 shows that the Japanese economy has become much stronger in comparison to the United States during the 21st Century. This could be due to the technological boom that has occurred as Japan has been at the forefront with multiple tech companies. The Pound and Yuan have stayed static for the last 50 years. These views are just options for how much the database can be expanded depending on potential use case. Although, based on the datasets already hosted within the database, and the way the schema has been setup, the best option moving forward will be evaluating the strength of the U.S. economy using analytical dashboarding and time series projecting. 
 
 __Figure 5__<br>
 *U.S. Dollar International Exchange Rates - 1970 to Present*
@@ -326,4 +330,8 @@ Given that the nature of the data and ETL pipeline is storing the data as a stru
 
 ## Gaps and Opportunities (Extensibility)
 
+As the pipeline is highly scalable moving forward, there are many opportunities moving forward. For instance, as more use cases immerge throughout  the creation of new teams or new ideas at the company, other datasets housed on BIS’s website can be easily implemented into the data pipeline. In addition to this, this creates many opportunities to create more specified views for teams to access their data with ease.<br> 
+Any gaps that exist stem from potential machine limitations when it comes to expanding the scope of the database to include most or all the datasets housed on BIS’s website. For instance, that massive increase in data will result in more space to house the data which may lead to further investment in hardware. So, while the pipeline itself will be highly scalable moving forward, the limitations of on-site hardware could potentially put hold on massively expanding the database.
+
+[. . . I added a couple small paragraphs with what I was thinking given the nature of our database and data... Go ahead and adjust or expand as necessary]
 [. . . Lane, feel free to weigh in; was going to extend comments at top about e.g., limited starting data set but otherwise opportunities to extend both consumption using current data and/or by adding additional, etc.]

@@ -310,7 +310,6 @@ conn.close()
 # Reset warnings to default
 warnings.resetwarnings()
 
-#
 # Perform Basic Time Series Analysis - CPI and Fed Rate
 
 print('Plotting CPI_v_Fedrate', end='... ')
