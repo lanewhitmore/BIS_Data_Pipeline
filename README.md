@@ -193,6 +193,7 @@ __Figure 2__<br>
 
 
 <br>
+
 Folowing are just a few examples of the *possibilities* with BIS data using the *baseline* script. As highlighted elsewhere in this document, __*BIS Pipeline*__ is easily extensible to expand these possibilities.
 
 
