@@ -182,7 +182,7 @@ __5. Source Data__ -<br>
 As summarized in Step 4.b, at this point in the pipeline process, dataframes are staged and ready for further processing including transformation and relational database population.
 
 __6. Data Transformation and Database Load__ -<br>
-Following extraction and load, the pipeline then executes a transformation stage. This part of the process has been constructed by using custom built commands within Python that employ the use of the package PyMySQL and sqlalchemy’s create_engine function. The first formula creates the connection between the python script and the database cursor and closes the connection once the formula has run the SQL script in the cursor. The second function can be used to create tables on the database through the python script, this is mostly for future usability if needed. The third function uses the first connection function to push the data to the database. The formula creates a connection to the database, pulls the table’s columns from the database, uses those column names to extract the important columns from the pandas dataframe, and creates a dataframe column to be filled by the auto incremental IDs within the MySQL schema. The formula also pulls the existing index from the schema and uses the difference function to find indexes that have not yet been posted to the databases to extract then ultimately push to the schema. By comparing and extracting indexes, it removes the possibility of reposting the same data and end up with duplicate data throughout the database. In total, as Figure 1 points out, the transformation portion creates six tables, two for each CSV, and ten views that are to be used for easier access to the data and/or security purposes. 
+Following extraction and load, the pipeline then executes a transformation stage. This part of the process has been constructed by using custom built commands within Python that employ the use of the package PyMySQL and sqlalchemy’s create_engine function. The first formula creates the connection between the python script and the database cursor and closes the connection once the formula has run the SQL script in the cursor. The second function can be used to create tables on the database through the python script, this is mostly for future usability if needed. The third function uses the first connection function to push the data to the database. The formula creates a connection to the database, pulls the table’s columns from the database, uses those column names to extract the important columns from the pandas data frame, and creates a data frame column to be filled by the auto incremental IDs within the MySQL schema. The formula also pulls the existing index from the schema and uses the difference function to find indexes that have not yet been posted to the databases to extract then ultimately push to the schema. By comparing and extracting indexes, it removes the possibility of reposting the same data and end up with duplicate data throughout the database. In total, as Figure 1 points out, the transformation portion creates six tables, two for each CSV, and ten views that are to be used for easier access to the data and/or security purposes. 
 
 __7. Entity Relationship Diagram (ERD)__ -<br>
 The following Figure 2 visualizes the physical model for *BIS_Pipeline*'s relational database:
@@ -234,7 +234,7 @@ In addition to having views to protect the database from security or structural 
 
 ### Data Integrity Controls and Logging
 
-The *Pipline Architecture and Process* section highlights logging of successful processing or exceptions, with process Step 4.b explicitly noting a data completeness control. These are simply emphasized here as key "non-functional" considerations for an automated pipeline.
+The *Pipeline Architecture and Process* section highlights logging of successful processing or exceptions, with process Step 4.b explicitly noting a data completeness control. These are simply emphasized here as key "non-functional" considerations for an automated pipeline.
 
 
 ### Pipeline Architecture and Process
@@ -249,10 +249,15 @@ Given that the nature of the data and ETL pipeline is storing the data as a stru
 
 ## Gaps and Opportunities (Extensibility)
 
-__*BIS Pipeline*__ gaps may be summarized in two areas: *baseline*-only scope and *potential* pipline environment limitations.
+__*BIS Pipeline*__ gaps may be summarized in two areas: *baseline*-only scope and *potential* pipeline environment limitations.
 
 As highlighted above, __*BIS Pipeline*__ was created as an automated pipeline framework for BIS - and, prospectively, complementary - data. Considering this, output examples are limited to *baseline* data and analytical visualizations. That said, pipeline extensibility was considered in design and implementation, and is encouraged.
 
 Regarding potential environment limitations, executing the pipeline on a local (e.g., vs. scalable cloud) environment may limit options when expanding the scope of the database to include most or all the datasets housed on BIS’s website. For instance, that substantial increase in data will result in more space to house the data which may lead to further investment in hardware. So, while the pipeline itself will be highly scalable moving forward, the limitations of on-site hardware could potentially put hold on materially expanding the database.
 
-In conclusion, __*BIS Pipline*__ was developed as a *base* framework to enable and extend analytics and other usage of global financial data provided by the Bank of International Settlements. As noted above under *Opportunity and Solution*, possibilities range from descriptive analytics and visualization to advanced predictive models and others. The pipeline's architecture,  implementation approach, and automation support data and consumption pattern extensions limited only by user interest and ambition.
+In conclusion, __*BIS Pipeline*__ was developed as a *base* framework to enable and extend analytics and other usage of global financial data provided by the Bank of International Settlements. As noted above under *Opportunity and Solution*, possibilities range from descriptive analytics and visualization to advanced predictive models and others. The pipeline's architecture,  implementation approach, and automation support data and consumption pattern extensions limited only by user interest and ambition.
+
+### References
+BIS. (2023). Statistics – Download BIS statistics in a single file. Retrieved from: 
+  https://www.bis.org/statistics/full_data_sets.htm
+
