@@ -158,57 +158,77 @@ __Figure 1__<br>
 <img src="https://github.com/lanewhitmore/BIS_Data_Pipeline/blob/main/src/bis_pipe_flow.png" width=130% height=130%>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <br>
 
-__1. Online Data Source__ - Per *Data* section above: https://www.bis.org/statistics/full_data_sets.htm
+__1. Online Data Source__ -<br>
+Per the *Data* section above, __*BIS Pipeline*__ automation sources data from the following URL: https://www.bis.org/statistics/full_data_sets.htm.
 
 __2.a. Pipeline Trigger__ -<br>
 Automation Directions are available at the top of the README on GitHub in addition to pipeline setup directions in general. The pipeline trigger is unfortunately only available within Window's Operating System. The pipeline has been created by constructing a batch (.bat) file in NotePad that contains four line items; pathing to an Anaconda environment that has been used to construct the pipeline, current working directory pathing to the 'src' folder within the repository, pathing to the Anaconda python.exe file, and, finally, pathing to the python pipeline file. The batch file is then used within Window's Task Scheduler to create a new task that runs on the second of every month at 10am, as the BIS datasets are updated every month on the first at any given time. The task will open Window's Command Prompt at that time and date and run the commands outlined earlier to begin updating the database with the pipeline. This will either populate the database, if the pipeline is running for the first time, or extract only rows that have not been populated within the database to update the tables with. Doing so will show print functions tracking the pipeline's progress in the command prompt. Once the pipeline has completed, within the 'src' folder, that has been set as the working directory, a pipeline log will be populated with recent updates or any expected errors that may have occurred.
 
 __2.b. File Download__ -<br>
-[. . .]
+The pipeline iterates (flexibly, extensiblty) through the set of source data files, using URL handling package *urllib* to retrieved each from their specified URL. Bis.org maintains consistent access points and filing naming conventions so this step *should* continue to function without exception, including when adding even more datasets. However, the pipeline tracks, logs, and elegantly handles potential issues with either the HTTP transport or URL itself. (Note that success is also logged.)
 
-__3. Archive Data__ - full_xru_csv.zip, full_cbpol_m_csv.zip, and full_long_cpi_csv.zip as replicated directly from bis.org.
+__3. Archive Data__ -<br>
+Using on *baseline* __*BIS Pipeline*__ scope, Step 2.b results in the following archive files being replicated directly from bis.org: full_xru_csv.zip, full_cbpol_m_csv.zip, and full_long_cpi_csv.zip.
 
 __4. File Extraction and Load__ -<br>
-[. . .]
+Once (to the extent) archive files are staged - and actually (efficiently) in parallel with the download of each file - the pipeline automatically extracts archive contents for further processing. Simlar to download, this is done using common Python package *zipfile*, and success is logged or exceptions are cleanly handled and logged. Exceptions may include corrupt or extremely large files.
 
-__5. Source Data__ - WS_XRU_csv_col.csv, WS_LONG_CPI_csv_col.csv, WS_CBPOL_M_csv_col.csv as extracted from (3).
+__5. Source Data__ -<br>
+Step 4 within the *baseline* script will produce the following files for continued processing: WS_XRU_csv_col.csv, WS_LONG_CPI_csv_col.csv, WS_CBPOL_M_csv_col.csv.
 
 __6. Data Transformation and Database Load__ -<br>
 Following extraction and load, the pipeline then executes a transformation stage. This part of the process has been constructed by using custom built commands within Python that employ the use of the package PyMySQL and sqlalchemy’s create_engine function. The first formula creates the connection between the python script and the database cursor and closes the connection once the formula has run the SQL script in the cursor. The second function can be used to create tables on the database through the python script, this is mostly for future usability if needed. The third function uses the first connection function to push the data to the database. The formula creates a connection to the database, pulls the table’s columns from the database, uses those column names to extract the important columns from the pandas dataframe, and creates a dataframe column to be filled by the auto incremental IDs within the MySQL schema. The formula also pulls the existing index from the schema and uses the difference function to find indexes that have not yet been posted to the databases to extract then ultimately push to the schema. By comparing and extracting indexes, it removes the possibility of reposting the same data and end up with duplicate data throughout the database. In total, as Figure 1 points out, the transformation portion creates six tables, two for each CSV, and ten views that are to be used for easier access to the data and/or security purposes. 
 
-__7. Entity Relationship Diagram (ERD)__ - The following Figure 2 visualizes the physical model for *BIS_Pipeline*'s relational database:
+__7. Entity Relationship Diagram (ERD)__ -<br>
+The following Figure 2 visualizes the physical model for *BIS_Pipeline*'s relational database:
 
 __Figure 2__<br>
 *BIS Entity Relationship Diagram*
 <img src="https://github.com/lanewhitmore/BIS_Data_Pipeline/blob/main/data/bis_id_ERD.png" width=130% height=130%>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <br>
