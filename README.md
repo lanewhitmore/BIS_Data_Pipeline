@@ -213,16 +213,17 @@ __Figure 5__<br>
 
 <br>
 
-### Data Integrity Controls and Logging
-
-[. . . Dave to add supporting narrative here to summarize logging approach]
-
-
 ### Security
 
 There are multiple steps of security that can be taken when using MySQL as the host for a relational database. Currently, there is no sensitive information that may need to have authorization to access within the database, but the pipeline and database is highly scalable. Due to this, it is within best practice to give privileges to users only when required. In this case, we have stored the data in 6 tables and made 10 views for those tables. Within the structure of the company, permissions can be given to access the connected database allowing the team concerned with tracking long term exchange rate trends to evaluate the strength of the U.S. Dollar in comparison to other countries. Doing so could add context to evaluating the economic strength for the United States, for example. Views have been created for just this purpose. In Figure above, the group of USD views define the long term relationships between the U.S. Dollar and various other currencies in potential countries of interest. Permission could be added for certain users working on such a project to access only these views rather than the entirety of the database to protect any future sensitive information that may be added to the database in addition to protecting the integrity of the database from any mistaken queries that may add false data to the structure. 
 
 In addition to having views to protect the database from security or structural risks, steps have been taken within the pipeline itself to hide credentials. Credentials in this case are stored locally within the machine as environment variables. Another step of security we have taken into consideration is backing up the storage. In the case of this pipeline, CSV backups are stored within the “data” folder of the repository. In the event that the database is attacked and wiped in addition to the website being taken down or attacked in some way, the most recent version of the CSV files hosted on the website are stored as backups. 
+
+
+### Data Integrity Controls and Logging
+
+[. . . Dave to add supporting narrative here to summarize logging approach]
+
 
 
 ### Scalability
