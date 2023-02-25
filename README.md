@@ -172,11 +172,14 @@ The pipeline iterates (flexibly, extensiblty) through the set of source data fil
 __3. Archive Data__ -<br>
 Using on *baseline* __*BIS Pipeline*__ scope, Step 2.b results in the following archive files being replicated directly from bis.org: full_xru_csv.zip, full_cbpol_m_csv.zip, and full_long_cpi_csv.zip.
 
-__4. File Extraction and Load__ -<br>
-Once (to the extent) archive files are staged - and actually (efficiently) in parallel with the download of each file - the pipeline automatically extracts archive contents for further processing. Simlar to download, this is done using common Python package *zipfile*, and success is logged or exceptions are cleanly handled and logged. Exceptions may include corrupt or extremely large files.
+__4.a. File Extraction__ -<br>
+Once (to the extent) archive files are staged - and actually (efficiently) in parallel with the download of each file - the pipeline automatically extracts archive contents for further processing. Simlar to download, this is done using common Python package *zipfile*, and success is logged or exceptions are cleanly handled and logged. Exceptions may include corrupt or extremely large files. This step within the *baseline* script will produce the following files for continued processing: WS_XRU_csv_col.csv, WS_LONG_CPI_csv_col.csv, WS_CBPOL_M_csv_col.csv.
+
+__4.b. File Load__ -<br>
+Following file extraction, the pipeline "ingests" the [n] .csv's into *Pandas* dataframe(s). This is a normal .csv load with a couple of key extensions: 1) a file count control is implemented to confirm full load of .csv contents; and, 2) the loaded dataframes are split into respective "context" and "measurement" components. This dataframe split is done because the quantitative values in BIS data may be extremely "wide", spanning granular time-series over many years. Segregating these values into a separate dataframe allows for a *Pandas* melt() (transposition) of these values from wide to narrow, for simpler load into the __*BIS Pipeline*__ relational database.
 
 __5. Source Data__ -<br>
-Step 4 within the *baseline* script will produce the following files for continued processing: WS_XRU_csv_col.csv, WS_LONG_CPI_csv_col.csv, WS_CBPOL_M_csv_col.csv.
+As summarized in Step 4.b, at this point in the pipeline process, dataframes are staged and ready for further processing including transformation and relational database population.
 
 __6. Data Transformation and Database Load__ -<br>
 Following extraction and load, the pipeline then executes a transformation stage. This part of the process has been constructed by using custom built commands within Python that employ the use of the package PyMySQL and sqlalchemy’s create_engine function. The first formula creates the connection between the python script and the database cursor and closes the connection once the formula has run the SQL script in the cursor. The second function can be used to create tables on the database through the python script, this is mostly for future usability if needed. The third function uses the first connection function to push the data to the database. The formula creates a connection to the database, pulls the table’s columns from the database, uses those column names to extract the important columns from the pandas dataframe, and creates a dataframe column to be filled by the auto incremental IDs within the MySQL schema. The formula also pulls the existing index from the schema and uses the difference function to find indexes that have not yet been posted to the databases to extract then ultimately push to the schema. By comparing and extracting indexes, it removes the possibility of reposting the same data and end up with duplicate data throughout the database. In total, as Figure 1 points out, the transformation portion creates six tables, two for each CSV, and ten views that are to be used for easier access to the data and/or security purposes. 
@@ -189,46 +192,8 @@ __Figure 2__<br>
 <img src="https://github.com/lanewhitmore/BIS_Data_Pipeline/blob/main/data/bis_id_ERD.png" width=130% height=130%>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<br>
+Folowing are just a few examples of the *possibilities* with BIS data using the *baseline* script. As highlighted elsewhere in this document, __*BIS Pipeline*__ is easily extensible to expand these possibilities.
 
 
 <br>
@@ -268,8 +233,10 @@ In addition to having views to protect the database from security or structural 
 
 ### Data Integrity Controls and Logging
 
-[. . . Dave to add supporting narrative here to summarize logging approach]
+THe *Pipline Architecture and Process* section highlights logging of successful processing or exceptions, with process Step 4.b explicitly noting a data completeness control. These are simply emphasized here as key "non-functional" considerations for an automated pipeline.
 
+
+### Pipeline Architecture and Process
 
 
 ### Scalability
@@ -281,8 +248,20 @@ Given that the nature of the data and ETL pipeline is storing the data as a stru
 
 ## Gaps and Opportunities (Extensibility)
 
-As the pipeline is highly scalable moving forward, there are many opportunities moving forward. For instance, as more use cases immerge throughout  the creation of new teams or new ideas at the company, other datasets housed on BIS’s website can be easily implemented into the data pipeline. In addition to this, this creates many opportunities to create more specified views for teams to access their data with ease.<br> 
 Any gaps that exist stem from potential machine limitations when it comes to expanding the scope of the database to include most or all the datasets housed on BIS’s website. For instance, that massive increase in data will result in more space to house the data which may lead to further investment in hardware. So, while the pipeline itself will be highly scalable moving forward, the limitations of on-site hardware could potentially put hold on massively expanding the database.
+
+
+
+
+
+As the pipeline is highly scalable moving forward, there are many opportunities moving forward. For instance, as more use cases immerge throughout the creation of new teams or new ideas at the company, other datasets housed on BIS’s website can be easily implemented into the data pipeline. In addition to this, this creates many opportunities to create more specified views for teams to access their data with ease.<br> 
+
+
+
+
+
+
+
 
 [. . . I added a couple small paragraphs with what I was thinking given the nature of our database and data... Go ahead and adjust or expand as necessary]
 [. . . Lane, feel free to weigh in; was going to extend comments at top about e.g., limited starting data set but otherwise opportunities to extend both consumption using current data and/or by adding additional, etc.]
