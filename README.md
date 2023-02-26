@@ -203,27 +203,21 @@ __8.a. Consumption Sample One Using Base Schema__ <br>
 The consumption sample below has been created at the end of the pipeline by pulling the consumer price index and federal rates from the United States. It acts as a sample of a data analytics dashboard that could automatically be constructed during the pipeline. 
 
 __Figure 3__<br>
-*Consumer Price Index vs. Federal Rates - 1980 to Present*
-<img src = https://github.com/lanewhitmore/BIS_Data_Pipeline/blob/main/src/CPI_v_FedRate.svg>
-
-
-<br>
+*Consumer Price Index vs. Federal Rates - 1980 to Present* <br>
+![img](src/CPI_v_FedRate.svg) <br>
 
 __8.b. Consumption Samples Two and Three Using Built-in Views__ <br>
 The consumption samples below are created by pulling the pre-filtered views that have been constructed within the schema. This serves as an example of potential use cases when using views. Views can be used for convienence when a query is used often, but, in addition to that, views can serve as security in the database. More on this topic is explained in the security section. Figures 4 and 5 below can offer insight into how the U.S. economy is performing by evaluating the U.S. Dollar in proportion to various other countries. Figure 4 highlights the exchange rate with two other North American countries Canada and Mexico over the span of 50 years. It points out that the relationship between the American Dollar and the Canadian Dollar have stayed static over the years while the exchange rate has steadily climbed going to Mexican Peso. For instance, this could point out that while Canadian and U.S. economies have stayed strong, or at least stayed relative to one another, the Mexican economy has struggled in comparison. 
 
 __Figure 4__<br>
-*U.S. Dollar North American Exchange Rates - 1970 to Present*
-<img src = https://github.com/lanewhitmore/BIS_Data_Pipeline/blob/main/src/USD_Exchange_rates.svg>
+*U.S. Dollar North American Exchange Rates - 1970 to Present* <br>
+![img](src/USD_Exchange_rates.svg) <br>
 
 Figure 5 offers more examples from  the views about potential analytics use cases from the database. The U.K., China, and Japan all have been world powers at some point in economic history. Figure 5 shows that the Japanese economy has become much stronger in comparison to the United States during the 21st Century. This could be due to the technological boom that has occurred as Japan has been at the forefront with multiple tech companies. The Pound and Yuan have stayed static for the last 50 years. These views are just options for how much the database can be expanded depending on potential use case. Although, based on the datasets already hosted within the database, and the way the schema has been setup, the best option moving forward will be evaluating the strength of the U.S. economy using analytical dashboarding and time series projecting. 
 
 __Figure 5__<br>
-*U.S. Dollar International Exchange Rates - 1970 to Present*
-<img src = https://github.com/lanewhitmore/BIS_Data_Pipeline/blob/main/src/USD_Exchange_rates_int.svg>
-
-
-<br>
+*U.S. Dollar International Exchange Rates - 1970 to Present* <br>
+![img](src/USD_Exchange_rates_int.svg) <br>
 
 ### Security
 
